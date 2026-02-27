@@ -11,10 +11,10 @@
     <h1>DigitalRift Project</h1>
     <nav>
         <ul>
-            <li><a href="#proyecto">DigitalRift</a></li>
-            <li><a href="#quienes">Who are we?</a></li>
-            <li><a href="#recursos">Resources and Publications</a></li>
-            <li><a href="#divulgacion">Dissemination</a></li>
+            <li><a href="#proyecto.html">DigitalRift</a></li>
+            <li><a href="#quienes.html">Who are we?</a></li>
+            <li><a href="#recursos.html">Resources and Publications</a></li>
+            <li><a href="#divulgacion.html">Dissemination</a></li>
         </ul>
     </nav>
 </header>
