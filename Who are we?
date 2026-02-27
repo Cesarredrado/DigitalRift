@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>DigitalRift Project</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+    <h1>DigitalRift Project</h1>
+    <nav>
+        <ul>
+            <li><a href="#proyecto">DigitalRift</a></li>
+            <li><a href="#quienes">Who are we?</a></li>
+            <li><a href="#recursos">Resources and Publications</a></li>
+            <li><a href="#divulgacion">Dissemination</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section id="proyecto">
+    <p>Team from IEGD-CSIC </p>
+</section>
+
+</body>
+</html>
