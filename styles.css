@@ -40,6 +40,12 @@ nav .idiomas {
     margin-left: auto;  /* fuerza que quede a la derecha */
 }
 
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+
 nav .idiomas a {
     font-weight: normal;
     margin-left: 5px;
