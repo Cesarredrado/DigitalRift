@@ -1,11 +1,10 @@
 header {
     display: flex;
-    justify-content: space-between; /* separa título y menú */
+    justify-content: space-between; /* Título a la izquierda, nav a la derecha */
     align-items: center;
     background: #222;
     color: white;
-    padding: 1rem 2rem; /* más ancho horizontalmente */
-    flex-wrap: wrap;    /* permite que se acomode en pantallas pequeñas */
+    padding: 1rem 2rem;  /* más espacio horizontal */
 }
 
 header h1 {
@@ -13,27 +12,35 @@ header h1 {
     font-size: 1.8rem;
 }
 
+/* Nav con menú y botones de idioma */
 nav {
     display: flex;
     align-items: center;
     gap: 2rem; /* espacio entre menú y idiomas */
 }
 
+/* Menú horizontal */
 nav ul.menu {
-    list-style: none;
     display: flex;
     gap: 20px;
+    list-style: none;
     margin: 0;
     padding: 0;
 }
 
+/* Estilo de links */
 nav a {
     color: white;
     text-decoration: none;
     font-weight: bold;
 }
 
+/* Idiomas siempre al extremo derecho */
+nav .idiomas {
+    margin-left: auto;  /* fuerza que quede a la derecha */
+}
+
 nav .idiomas a {
-    margin-left: 10px;
     font-weight: normal;
+    margin-left: 5px;
 }
