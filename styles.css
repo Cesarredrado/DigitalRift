@@ -38,17 +38,17 @@ nav a {
 /* Idiomas siempre al extremo derecho */
 nav .idiomas {
     margin-left: auto;  /* fuerza que quede a la derecha */
+    display: flex;
+    gap: 8px;
 }
-
-img {
-    max-width: 100%;
-    height: auto;
-}
-
 
 nav .idiomas a {
     font-weight: normal;
-    margin-left: 5px;
+    margin-left: 0;
+    padding: 5px 8px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    cursor: pointer;
 }
 
 </style>
