@@ -2,23 +2,29 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DigitalRift Project</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <header>
-    <h1>DigitalRift Project</h1>
+    <h1><span class="bracket">[</span> DigitalRift <span class="bracket">]</span></h1>
     <nav>
         <ul class="menu">
             <li><a href="index.html" data-i18n="nav.inicio">Inicio</a></li>
             <li><a href="quienes.html" data-i18n="nav.quienes">Quiénes Somos</a></li>
             <li><a href="EviAtlas.html" data-i18n="nav.atlas">Evidence Atlas</a></li>
-            <li><a href="recursos.html" data-i18n="nav.recursos">Recursos y Publicaciones</a></li>
+            <li><a href="recursos.html" class="active" data-i18n="nav.recursos">Recursos y Publicaciones</a></li>
             <li><a href="divulgacion.html" data-i18n="nav.divulgacion">Divulgación</a></li>
         </ul>
         <div class="idiomas">
-            <a href="#" data-lang="es">ES</a> | <a href="#" data-lang="en">EN</a>
+            <a href="#" data-lang="es">ES</a>
+            <span class="separator">|</span>
+            <a href="#" data-lang="en">EN</a>
         </div>
     </nav>
 </header>
@@ -28,6 +34,10 @@
     <p><strong data-i18n="recursos.publicaciones">Publicaciones</strong></p>
     <p data-i18n="recursos.protocolo">Protocolo</p>
 </section>
+
+<footer>
+    <span class="status">●</span> SYSTEM ONLINE &mdash; DigitalRift Project &copy; IEGD-CSIC
+</footer>
 
 <script src="translations.js"></script>
 </body>
