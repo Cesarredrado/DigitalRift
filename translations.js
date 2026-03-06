@@ -28,7 +28,7 @@ const translations = {
     'atlas.sobre': 'Sobre este Evidence Atlas',
     'atlas.cerrar': 'Cerrar',
     'atlas.volver': '← Volver',
-    'atlas.info': 'ℹ',
+    'atlas.info': 'info',
   },
   en: {
     // Main menu
@@ -59,7 +59,7 @@ const translations = {
     'atlas.sobre': 'About this Evidence Atlas',
     'atlas.cerrar': 'Close',
     'atlas.volver': '← Back',
-    'atlas.info': 'ℹ',
+    'atlas.info': 'info',
   }
 };
 
