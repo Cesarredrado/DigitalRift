@@ -8,7 +8,17 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
-<style>body{background-color:#dfe8d2;}</style>
+<style>
+body{background-color:#dfe8d2;}
+.leaflet-popup-content {
+  max-height: 400px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.leaflet-popup-content-wrapper {
+  max-width: 340px;
+}
+</style>
 <script>(function() {
   // If window.HTMLWidgets is already defined, then use it; otherwise create a
   // new object. This allows preceding code to set options that affect the
