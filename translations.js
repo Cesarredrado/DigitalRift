@@ -13,7 +13,7 @@ const translations = {
     
     // Quiénes somos
     'quienes.titulo': 'Quiénes Somos',
-    'quienes.content': 'Equipo del IEGD-CSIC',
+    'quienes.content': 'Equipo del IEGD-CSIC y colaboradores del proyecto',
     
     // Recursos
     'recursos.titulo': 'Recursos y Publicaciones',
@@ -44,7 +44,7 @@ const translations = {
     
     // Who are we
     'quienes.titulo': 'Who are we?',
-    'quienes.content': 'Team from IEGD-CSIC',
+    'quienes.content': 'IEGD-CSIC team and project collaborators',
     
     // Resources
     'recursos.titulo': 'Resources and Publications',

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewBox="0 0 640 640" role="img" aria-labelledby="title desc">
+  <title id="title">Retrato de persona 4</title>
+  <desc id="desc">Imagen de perfil con iniciales P4</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1f3116"/>
+      <stop offset="100%" stop-color="#0f1a09"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="640" fill="url(#bg)"/>
+  <circle cx="320" cy="255" r="110" fill="#38542b"/>
+  <rect x="190" y="390" width="260" height="170" rx="85" fill="#38542b"/>
+  <text x="320" y="600" text-anchor="middle" fill="#d4a76a" font-size="66" font-family="'Share Tech Mono', monospace">P4</text>
+</svg>
