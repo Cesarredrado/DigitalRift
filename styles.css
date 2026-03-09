@@ -588,20 +588,21 @@ a:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
-  background: rgba(124, 179, 66, 0.16);
-  border: 1px solid rgba(92, 125, 49, 0.34);
+  width: 34px;
+  height: 34px;
+  background: rgba(124, 179, 66, 0.28);
+  border: 1px solid rgba(151, 198, 95, 0.58);
   border-radius: 3px;
-  color: #845b29;
-  font-size: 0.9rem;
+  color: #f1e3c9;
+  font-size: 1rem;
+  box-shadow: 0 2px 8px rgba(21, 30, 14, 0.32);
   transition: all 0.3s ease;
 }
 
 .social-link:hover {
-  background: rgba(124, 179, 66, 0.3);
-  border-color: #61873a;
-  color: #3f5d27;
+  background: rgba(151, 198, 95, 0.42);
+  border-color: #b7dd82;
+  color: #ffffff;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(67, 92, 37, 0.22);
+  box-shadow: 0 6px 14px rgba(45, 64, 29, 0.34);
 }
