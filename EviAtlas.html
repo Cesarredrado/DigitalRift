@@ -4175,5 +4175,457 @@ line-height: 30px;
 </footer>
 
 <script src="translations.js"></script>
+<style>
+.digitalrift-map-tools {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.digitalrift-map-tools .digitalrift-map-button {
+  width: auto;
+  min-width: 96px;
+  height: auto;
+  padding: 0 14px;
+  font: 700 12px/32px "Share Tech Mono", monospace;
+  color: #0f172a;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.digitalrift-map-tools .digitalrift-map-button:hover {
+  color: #0f172a;
+}
+
+.digitalrift-restored-legend,
+.leaflet-control .digitalrift-restored-legend,
+.leaflet-control.info.legend {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(15, 23, 42, 0.16);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.16);
+  color: #1f2937;
+  font-family: "Share Tech Mono", monospace;
+}
+
+.digitalrift-restored-legend .legend-title,
+.leaflet-control.info.legend .legend-title {
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.digitalrift-restored-legend .legend-item,
+.leaflet-control.info.legend .legend-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 6px 0;
+  line-height: 1.3;
+  font-size: 11px;
+}
+
+.digitalrift-restored-legend .legend-swatch,
+.leaflet-control.info.legend .legend-swatch {
+  flex: 0 0 14px;
+  width: 14px;
+  height: 14px;
+  margin-top: 1px;
+  border-radius: 50%;
+  border: 1px solid rgba(15, 23, 42, 0.2);
+}
+
+.digitalrift-info-modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(2, 6, 23, 0.68);
+  z-index: 4000;
+}
+
+.digitalrift-info-modal.is-open {
+  display: flex;
+}
+
+.digitalrift-info-panel {
+  width: min(640px, 100%);
+  padding: 24px;
+  background: #f8fafc;
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  border-radius: 16px;
+  box-shadow: 0 24px 80px rgba(15, 23, 42, 0.35);
+  color: #0f172a;
+  font-family: "Share Tech Mono", monospace;
+}
+
+.digitalrift-info-panel h2 {
+  margin: 0 0 16px;
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+.digitalrift-info-panel p {
+  margin: 0 0 12px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.digitalrift-info-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 18px;
+}
+
+.digitalrift-info-close {
+  border: 0;
+  border-radius: 999px;
+  padding: 10px 16px;
+  background: #0f172a;
+  color: #f8fafc;
+  font: 700 12px/1 "Share Tech Mono", monospace;
+  cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .digitalrift-map-tools .digitalrift-map-button {
+    min-width: 82px;
+    padding: 0 10px;
+    font-size: 11px;
+  }
+
+  .digitalrift-info-modal {
+    padding: 16px;
+  }
+
+  .digitalrift-info-panel {
+    padding: 18px;
+  }
+}
+</style>
+<script>
+(function () {
+  var mapSelector = "#htmlwidget-548fa53d7de79850768e";
+  var legendItems = [
+    { color: "#FF0000", label: "Legal Issues, Data & Technological lock-ins" },
+    { color: "#0000FF", label: "Policy Effectiveness to Overcome the Barriers for Technology Adoption" },
+    { color: "#00FF00", label: "Socio-ecological implications, rebound effects & legal by-passes" },
+    { color: "#FFA500", label: "Technology Effectiveness for Policy Compliance" },
+    { color: "#A020F0", label: "Visions of Future Agricultural Policies" }
+  ];
+
+  var infoCopy = {
+    es: {
+      title: "Sobre este Evidence Atlas",
+      body: [
+        "Este Evidence Atlas reune estudios sobre las implicaciones ambientales y socioeconomicas de las politicas publicas para la digitalizacion de la agricultura en la Union Europea.",
+        "Pulsa sobre los marcadores para abrir cada publicacion y revisar autores, metodologia, tipo de politica e implicaciones analizadas.",
+        "La leyenda del mapa resume las cinco categorias tematicas usadas para clasificar la evidencia recopilada."
+      ],
+      close: "Cerrar",
+      back: "← Volver",
+      info: "info"
+    },
+    en: {
+      title: "About this Evidence Atlas",
+      body: [
+        "This Evidence Atlas brings together studies on the environmental and socio-economic implications of public policies for the digitalisation of agriculture in the European Union.",
+        "Open the markers to inspect each publication, including authorship, methods, policy type, and the implications analysed.",
+        "The map legend summarizes the five thematic categories used to classify the evidence gathered in the atlas."
+      ],
+      close: "Close",
+      back: "← Back",
+      info: "info"
+    }
+  };
+
+  function getLanguage() {
+    return localStorage.getItem("language") || "es";
+  }
+
+  function getCopy() {
+    return infoCopy[getLanguage()] || infoCopy.es;
+  }
+
+  function restorePageScroll() {
+    var html = document.documentElement;
+    var body = document.body;
+    var widgetContainer = document.getElementById("htmlwidget_container");
+    var atlasSection = document.getElementById("atlas-container");
+    var widgetEl = document.querySelector(mapSelector);
+
+    if (html) {
+      html.style.width = "";
+      html.style.height = "";
+      html.style.overflow = "auto";
+    }
+
+    if (body) {
+      body.style.width = "";
+      body.style.height = "";
+      body.style.overflow = "auto";
+    }
+
+    if (widgetContainer) {
+      widgetContainer.style.position = "relative";
+      widgetContainer.style.top = "auto";
+      widgetContainer.style.right = "auto";
+      widgetContainer.style.bottom = "auto";
+      widgetContainer.style.left = "auto";
+      widgetContainer.style.width = "100%";
+      widgetContainer.style.height = "600px";
+    }
+
+    if (widgetEl) {
+      widgetEl.style.width = "100%";
+      widgetEl.style.height = "600px";
+    }
+
+    if (atlasSection) {
+      atlasSection.style.position = "relative";
+      atlasSection.style.overflow = "visible";
+    }
+  }
+
+  function getWidgetInstance() {
+    if (!window.HTMLWidgets || !window.HTMLWidgets.find) {
+      return null;
+    }
+
+    return window.HTMLWidgets.find(mapSelector);
+  }
+
+  function getMap() {
+    var widget = getWidgetInstance();
+    if (!widget || typeof widget.getMap !== "function") {
+      return null;
+    }
+
+    return widget.getMap();
+  }
+
+  function buildLegendHtml() {
+    var itemsHtml = legendItems.map(function (item) {
+      return "<div class=\"legend-item\"><span class=\"legend-swatch\" style=\"background:" + item.color + "\"></span><span>" + item.label + "</span></div>";
+    }).join("");
+
+    return "<div class=\"legend-title\">Implications Analysed</div>" + itemsHtml;
+  }
+
+  function ensureModal() {
+    var modal = document.getElementById("digitalrift-info-modal");
+    if (modal) {
+      return modal;
+    }
+
+    modal = document.createElement("div");
+    modal.id = "digitalrift-info-modal";
+    modal.className = "digitalrift-info-modal";
+    modal.innerHTML = "<div class=\"digitalrift-info-panel\" role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"digitalrift-info-title\"><h2 id=\"digitalrift-info-title\"></h2><div id=\"digitalrift-info-body\"></div><div class=\"digitalrift-info-actions\"><button type=\"button\" class=\"digitalrift-info-close\" id=\"digitalrift-info-close\"></button></div></div>";
+    document.body.appendChild(modal);
+
+    modal.addEventListener("click", function (event) {
+      if (event.target === modal) {
+        closeModal();
+      }
+    });
+
+    modal.querySelector(".digitalrift-info-panel").addEventListener("click", function (event) {
+      event.stopPropagation();
+    });
+
+    document.getElementById("digitalrift-info-close").addEventListener("click", closeModal);
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") {
+        closeModal();
+      }
+    });
+
+    updateModalCopy();
+    return modal;
+  }
+
+  function updateModalCopy() {
+    var modal = document.getElementById("digitalrift-info-modal");
+    if (!modal) {
+      return;
+    }
+
+    var copy = getCopy();
+    document.getElementById("digitalrift-info-title").textContent = copy.title;
+    document.getElementById("digitalrift-info-body").innerHTML = copy.body.map(function (paragraph) {
+      return "<p>" + paragraph + "</p>";
+    }).join("");
+    document.getElementById("digitalrift-info-close").textContent = copy.close;
+  }
+
+  function openModal() {
+    updateModalCopy();
+    ensureModal().classList.add("is-open");
+  }
+
+  function closeModal() {
+    var modal = document.getElementById("digitalrift-info-modal");
+    if (modal) {
+      modal.classList.remove("is-open");
+    }
+  }
+
+  function styleExistingLegend(map) {
+    var legend = map.getContainer().querySelector(".leaflet-bottom.leaflet-right .info.legend, .leaflet-bottom.leaflet-right .legend");
+    if (!legend) {
+      return false;
+    }
+
+    legend.classList.add("digitalrift-restored-legend");
+    if (!legend.querySelector(".legend-title")) {
+      legend.innerHTML = buildLegendHtml();
+    }
+    return true;
+  }
+
+  function ensureLegend(map) {
+    if (!map || !window.L) {
+      return;
+    }
+
+    if (styleExistingLegend(map)) {
+      return;
+    }
+
+    if (!map._digitalRiftLegendControl) {
+      map._digitalRiftLegendControl = window.L.control({ position: "bottomright" });
+      map._digitalRiftLegendControl.onAdd = function () {
+        var div = window.L.DomUtil.create("div", "info legend digitalrift-restored-legend");
+        div.innerHTML = buildLegendHtml();
+        return div;
+      };
+      map._digitalRiftLegendControl.addTo(map);
+    } else if (map._digitalRiftLegendControl._container) {
+      map._digitalRiftLegendControl._container.innerHTML = buildLegendHtml();
+    }
+  }
+
+  function updateControlLabels(map) {
+    if (!map || !map._digitalRiftToolContainer) {
+      return;
+    }
+
+    var copy = getCopy();
+    var backButton = map._digitalRiftToolContainer.querySelector("[data-role='back']");
+    var infoButton = map._digitalRiftToolContainer.querySelector("[data-role='info']");
+
+    if (backButton) {
+      backButton.textContent = copy.back;
+      backButton.title = copy.back;
+      backButton.setAttribute("aria-label", copy.back);
+    }
+
+    if (infoButton) {
+      infoButton.textContent = copy.info;
+      infoButton.title = copy.title;
+      infoButton.setAttribute("aria-label", copy.title);
+    }
+  }
+
+  function ensureControls(map) {
+    if (!map || !window.L || map._digitalRiftToolControl) {
+      updateControlLabels(map);
+      return;
+    }
+
+    map._digitalRiftToolControl = window.L.control({ position: "bottomleft" });
+    map._digitalRiftToolControl.onAdd = function () {
+      var container = window.L.DomUtil.create("div", "leaflet-bar digitalrift-map-tools");
+      var backButton = window.L.DomUtil.create("a", "digitalrift-map-button", container);
+      var infoButton = window.L.DomUtil.create("a", "digitalrift-map-button", container);
+
+      backButton.href = "#";
+      backButton.setAttribute("data-role", "back");
+
+      infoButton.href = "#";
+      infoButton.setAttribute("data-role", "info");
+
+      window.L.DomEvent.disableClickPropagation(container);
+      window.L.DomEvent.disableScrollPropagation(container);
+
+      window.L.DomEvent.on(backButton, "click", function (event) {
+        window.L.DomEvent.stop(event);
+        if (window.history.length > 1) {
+          window.history.back();
+        } else {
+          window.location.href = "index.html";
+        }
+      });
+
+      window.L.DomEvent.on(infoButton, "click", function (event) {
+        window.L.DomEvent.stop(event);
+        openModal();
+      });
+
+      map._digitalRiftToolContainer = container;
+      updateControlLabels(map);
+      return container;
+    };
+
+    map._digitalRiftToolControl.addTo(map);
+  }
+
+  function refreshAtlasUi() {
+    var map = getMap();
+    restorePageScroll();
+
+    if (!map) {
+      return false;
+    }
+
+    if (map.scrollWheelZoom) {
+      map.scrollWheelZoom.disable();
+    }
+
+    ensureModal();
+    ensureControls(map);
+    ensureLegend(map);
+    updateControlLabels(map);
+    updateModalCopy();
+    return true;
+  }
+
+  function initializeAtlasUi() {
+    if (refreshAtlasUi()) {
+      return;
+    }
+
+    var attempts = 0;
+    var timer = setInterval(function () {
+      attempts += 1;
+      if (refreshAtlasUi() || attempts > 40) {
+        clearInterval(timer);
+      }
+    }, 250);
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    restorePageScroll();
+    ensureModal();
+    initializeAtlasUi();
+
+    document.querySelectorAll(".idiomas a[data-lang]").forEach(function (link) {
+      link.addEventListener("click", function () {
+        setTimeout(function () {
+          refreshAtlasUi();
+        }, 0);
+      });
+    });
+  });
+})();
+</script>
 </body>
 </html>
