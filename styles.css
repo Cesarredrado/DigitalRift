@@ -307,9 +307,7 @@ section img {
 .hero {
   text-align: center;
   padding: 4rem 2rem;
-  background: 
-    radial-gradient(ellipse at 50% 0%, rgba(124, 179, 66, 0.16) 0%, transparent 60%),
-    rgba(31, 43, 23, 0.88);
+  background: #1f2b17;
   border: 1px solid rgba(124, 179, 66, 0.2);
 }
 
