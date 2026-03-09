@@ -4,7 +4,7 @@ const translations = {
     'nav.inicio': 'Inicio',
     'nav.quienes': 'Quiénes Somos',
     'nav.atlas': 'Evidence Atlas',
-    'nav.recursos': 'Recursos y Publicaciones',
+    'nav.recursos': 'Publicaciones',
     'nav.divulgacion': 'Divulgación',
     
     // Index
@@ -16,7 +16,7 @@ const translations = {
     'quienes.content': 'Equipo del IEGD-CSIC y colaboradores del proyecto',
     
     // Recursos
-    'recursos.titulo': 'Recursos y Publicaciones',
+    'recursos.titulo': 'Publicaciones',
     'recursos.publicaciones': 'Publicaciones',
     'recursos.publicacionesIntro': 'Listado de publicaciones del proyecto.',
     'recursos.availableFrom': 'Disponible en:',
@@ -37,7 +37,7 @@ const translations = {
     'nav.inicio': 'Home',
     'nav.quienes': 'Who are we?',
     'nav.atlas': 'Evidence Atlas',
-    'nav.recursos': 'Resources and Publications',
+    'nav.recursos': 'Publications',
     'nav.divulgacion': 'Dissemination',
     
     // Index
@@ -49,7 +49,7 @@ const translations = {
     'quienes.content': 'IEGD-CSIC team and project collaborators',
     
     // Resources
-    'recursos.titulo': 'Resources and Publications',
+    'recursos.titulo': 'Publications',
     'recursos.publicaciones': 'Publications',
     'recursos.publicacionesIntro': 'Project publications list.',
     'recursos.availableFrom': 'Available from:',
