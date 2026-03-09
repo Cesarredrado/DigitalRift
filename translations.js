@@ -18,6 +18,8 @@ const translations = {
     // Recursos
     'recursos.titulo': 'Recursos y Publicaciones',
     'recursos.publicaciones': 'Publicaciones',
+    'recursos.publicacionesIntro': 'Listado de publicaciones del proyecto (se ira actualizando).',
+    'recursos.availableFrom': 'Disponible en:',
     'recursos.protocolo': 'Protocolo',
     
     // Divulgación
@@ -49,6 +51,8 @@ const translations = {
     // Resources
     'recursos.titulo': 'Resources and Publications',
     'recursos.publicaciones': 'Publications',
+    'recursos.publicacionesIntro': 'Project publications list (updated regularly).',
+    'recursos.availableFrom': 'Available from:',
     'recursos.protocolo': 'Protocol',
     
     // Dissemination

@@ -258,6 +258,48 @@ section img {
   line-height: 1.65;
 }
 
+/* ===== PUBLICATIONS SECTION ===== */
+.pub-intro {
+  margin-bottom: 1rem;
+}
+
+.pub-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.pub-item {
+  background: rgba(14, 18, 9, 0.7);
+  border: 1px solid rgba(124, 179, 66, 0.2);
+  border-radius: 4px;
+  padding: 1rem;
+}
+
+.pub-item h3 {
+  font-size: 0.95rem;
+  color: #d4a76a;
+  letter-spacing: 1px;
+  margin-bottom: 0.6rem;
+  text-transform: uppercase;
+}
+
+.pub-item p {
+  margin-bottom: 0.8rem;
+  font-size: 0.9rem;
+}
+
+.pub-links {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.pub-links li {
+  margin-bottom: 0.45rem;
+  word-break: break-word;
+}
+
 /* ===== HERO SECTION (index page) ===== */
 .hero {
   text-align: center;
