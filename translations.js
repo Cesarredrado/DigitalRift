@@ -47,7 +47,7 @@ const translations = {
     
     // Divulgación
     'divulgacion.titulo': 'Divulgación',
-    'divulgacion.content': 'Equipo del IEGD-CSIC',
+    'divulgacion.content': 'Próximamente...',
     
     // EviAtlas
     'atlas.sobre': 'Sobre este Evidence Atlas',
@@ -103,7 +103,7 @@ const translations = {
     
     // Dissemination
     'divulgacion.titulo': 'Dissemination',
-    'divulgacion.content': 'Team from IEGD-CSIC',
+    'divulgacion.content': 'Coming soon...',
     
     // EviAtlas
     'atlas.sobre': 'About this Evidence Atlas',
