@@ -19,7 +19,7 @@ const translations = {
     // César
     'quienes.cesar.bio1': 'Investigador predoctoral JAE-PRE en el Instituto de Economia, Geografia y Demografia (IEGD-CSIC) y estudiante de doctorado en Ciencia y Tecnologia Ambientales en la Universidad Autonoma de Barcelona (UAB). Su tesis, enmarcada dentro del proyecto DigitalRift, analiza las implicaciones ambientales y socioeconomicas de la digitalizacion de la agricultura en Espana y la Union Europea.',
     'quienes.cesar.bio2': 'Como economista ecológico le interesan una amplia variedad de temas como la Diversidad biocultural, la Gobernanza del Agua, la Justicia Ambiental o la agricultura. En su trabajo emplea métodos mixtos e intenta incluir el arte como herramienta de investigación.',
-    'quienes.cesar.bio3': 'También lidera el proyecto Cascarrias para conservar y poner en valor la biodiversidad y el patrimonio inmaterial de la Ribera de Navarra.',
+    'quienes.cesar.bio3': 'También lidera el proyecto <a href="https://www.cascarrias.es" target="_blank" rel="noopener noreferrer">Cascarrias</a> para conservar y poner en valor la biodiversidad y el patrimonio inmaterial de la Ribera de Navarra.',
 
     // Soledad
     'quienes.sol.bio1': 'Investigadora Postdoctoral Ramón y Cajal e IP del proyecto DigitalRift. Sol es economista de formación, especializada en economía alimentaria y de la salud. Está interesada en el análisis de políticas y gobernanza para promover transiciones socioambientales saludables, particularmente en el ámbito de los sistemas alimentarios.',
@@ -75,7 +75,7 @@ const translations = {
     // César
     'quienes.cesar.bio1': 'JAE-PRE predoctoral researcher at the Institute of Economics, Geography and Demography (IEGD-CSIC) and PhD student in Environmental Science and Technology at the Autonomous University of Barcelona (UAB).',
     'quienes.cesar.bio2': 'As an ecological economist he is interested in a wide range of topics including biocultural diversity, water governance, environmental justice and agriculture.',
-    'quienes.cesar.bio3': 'His thesis, framed within the DigitalRift project, analyses the environmental and socio-economic implications of the digitalisation of agriculture in Spain and the European Union.',
+    'quienes.cesar.bio3': 'He also leads the <a href="https://www.cascarrias.es" target="_blank" rel="noopener noreferrer">Cascarrias</a> project to conserve and enhance the biodiversity and intangible heritage of the Ribera de Navarra.',
 
     // Soledad
     'quienes.sol.bio1': 'Ramón y Cajal Postdoctoral Researcher and PI of the DigitalRift project. Sol is an economist by training, specialised in food and health economics. She is interested in policy analysis and governance to promote healthy socio-environmental transitions, particularly in the context of food systems.',
@@ -133,7 +133,11 @@ function applyTranslations(lang) {
   elements.forEach(element => {
     const key = element.getAttribute('data-i18n');
     if (translations[lang][key]) {
-      element.textContent = translations[lang][key];
+      if (element.hasAttribute('data-i18n-html')) {
+        element.innerHTML = translations[lang][key];
+      } else {
+        element.textContent = translations[lang][key];
+      }
     }
   });
   const srcElements = document.querySelectorAll('[data-i18n-src]');
