@@ -362,7 +362,7 @@ footer span.status {
 /* ===== ATLAS PAGE ===== */
 #atlas-container {
   width: 100%;
-  height: 100vh;
+  height: auto;
 }
 
 /* Botón volver */
