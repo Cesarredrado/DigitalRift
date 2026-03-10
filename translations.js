@@ -14,6 +14,28 @@ const translations = {
     // Quiénes somos
     'quienes.titulo': 'Quiénes Somos',
     'quienes.content': 'Equipo del IEGD-CSIC y colaboradores del proyecto',
+
+    // César
+    'quienes.cesar.bio1': 'Investigador predoctoral JAE-PRE en el Instituto de Economia, Geografia y Demografia (IEGD-CSIC) y estudiante de doctorado en Ciencia y Tecnologia Ambientales en la Universidad Autonoma de Barcelona (UAB)',
+    'quienes.cesar.bio2': 'Como economista ecológico le interesan una amplia variedad de temas como la Diversidad biocultural, la Gobernanza del Agua, la Justicia Ambiental o la agricultura.',
+    'quienes.cesar.bio3': 'Su tesis, enmarcada dentro del proyecto DigitalRift, analiza las implicaciones ambientales y socioeconomicas de la digitalizacion de la agricultura en Espana y la Union Europea.',
+
+    // Soledad
+    'quienes.sol.bio1': 'Investigadora Postdoctoral Ramón y Cajal e IP del proyecto DigitalRift. Sol es economista de formación, especializada en economía alimentaria y de la salud. Está interesada en el análisis de políticas y gobernanza para promover transiciones socioambientales saludables, particularmente en el ámbito de los sistemas alimentarios.',
+    'quienes.sol.bio2': 'Soledad Cuevas es economista sanitaria de formación. La mayor parte de su investigación se centra en los sistemas alimentarios y los determinantes socioeconómicos o estructurales de la salud, y está muy orientada a la política o la acción. También se interesa por la economía política de las intervenciones destinadas a promover objetivos tanto medioambientales como sanitarios. Se doctoró en la LSHTM, donde estudió la liberalización del comercio del aceite de palma en la India. Tras su doctorado y antes de regresar a LSHTM, trabajó en SOAS en el Centro de Medio Ambiente, Desarrollo y Política CEDeP, y como consultora independiente. Trabaja en el proyecto SHEFS sobre Sistemas Alimentarios Sostenibles y Saludables y la Iniciativa Pathfinder sobre la aplicación de iniciativas de mitigación del cambio climático para promover una transición saludable hacia un futuro sin emisiones de carbono. En su investigación utiliza métodos mixtos y el pensamiento sistémico, incluidos el análisis de las partes interesadas y la modelización económica. También ha escrito sobre la evaluación económica de intervenciones complejas, One Health y Planetary Health. Le interesa utilizar la investigación para apoyar y fundamentar políticas y acciones transformadoras. Experiencia geográfica: India, Sudáfrica, Reino Unido y España.',
+    'quienes.sol.areas': 'Áreas específicas de interés incluyen:',
+    'quienes.sol.area1': 'Política comercial, comportamiento corporativo y cadenas de valor global',
+    'quienes.sol.area2': 'Impuestos ambientales, financiarización y mecanismos de financiación en las políticas alimentarias y climáticas',
+    'quienes.sol.area3': 'Políticas de digitalización agraria',
+    'quienes.sol.area4': 'Políticas de promoción de la agricultura urbana',
+
+    // Daniel
+    'quienes.dani.cargo': 'Científico Titular en el Instituto de Economía, Geografía y Demografía (IEGD-CSIC)',
+    'quienes.dani.bio': 'Su carrera profesional es híbrida y combina la investigación, la consultoría, la formación y el activismo. Esta diversidad de actividades, junto con su formación multidisciplinar (ecología, sociología) permite una rica combinación de puntos de vista y experiencias útiles para el enfoque transdisciplinar y pluriepistemológico de los sistemas alimentarios sostenibles y la investigación en agroecología. Con altos conocimientos sobre la interacción entre investigación y política. Ha sido autor de las dos primeras recopilaciones sobre políticas alimentarias urbanas en España. Su enfoque híbrido sobre los sistemas y políticas alimentarias territorializadas le ha permitido participar en procesos globales de gran impacto: «Declaración de Glasgow sobre la Alimentación y el Clima» (COP26), «El Desafío de Barcelona sobre la Buena Alimentación y el Clima», Pacto de Política Alimentaria Urbana de Milán (MUFPP) y presentado en el 7º Foro Global del MUFPP (Barcelona 2021).',
+
+    // Almudena
+    'quienes.almu.cargo': 'Profesora Titular en la Universidad de Valladolid',
+    'quienes.almu.bio': 'Ingeniera Agrónoma especialidad Economía y Sociología Agraria. Doctora en Economía Agraria Alimentaria y de los Recursos Naturales',
     
     // Recursos
     'recursos.titulo': 'Publicaciones',
@@ -47,6 +69,28 @@ const translations = {
     // Who are we
     'quienes.titulo': 'Who are we?',
     'quienes.content': 'IEGD-CSIC team and project collaborators',
+
+    // César
+    'quienes.cesar.bio1': 'JAE-PRE predoctoral researcher at the Institute of Economics, Geography and Demography (IEGD-CSIC) and PhD student in Environmental Science and Technology at the Autonomous University of Barcelona (UAB).',
+    'quienes.cesar.bio2': 'As an ecological economist he is interested in a wide range of topics including biocultural diversity, water governance, environmental justice and agriculture.',
+    'quienes.cesar.bio3': 'His thesis, framed within the DigitalRift project, analyses the environmental and socio-economic implications of the digitalisation of agriculture in Spain and the European Union.',
+
+    // Soledad
+    'quienes.sol.bio1': 'Ramón y Cajal Postdoctoral Researcher and PI of the DigitalRift project. Sol is an economist by training, specialised in food and health economics. She is interested in policy analysis and governance to promote healthy socio-environmental transitions, particularly in the context of food systems.',
+    'quienes.sol.bio2': 'Soledad Cuevas is a health economist by training. The bulk of her research focuses on food systems and the socioeconomic or structural determinants of health, and is strongly policy- or action-oriented. She is also interested in the political economy of interventions aimed at promoting both environmental and health objectives. She obtained her PhD at LSHTM, where she studied the liberalisation of palm oil trade in India. After her doctorate and before returning to LSHTM, she worked at SOAS at the Centre for Environment, Development and Policy (CEDeP), and as an independent consultant. She works on the SHEFS project on Sustainable and Healthy Food Systems and the Pathfinder Initiative on applying climate change mitigation initiatives to promote a healthy transition to a carbon-free future. Her research uses mixed methods and systems thinking, including stakeholder analysis and economic modelling. She has also written on the economic evaluation of complex interventions, One Health and Planetary Health. She is interested in using research to support and inform transformative policies and actions. Geographic expertise: India, South Africa, the United Kingdom and Spain.',
+    'quienes.sol.areas': 'Specific areas of interest include:',
+    'quienes.sol.area1': 'Trade policy, corporate behaviour and global value chains',
+    'quienes.sol.area2': 'Environmental taxes, financialisation and financing mechanisms in food and climate policies',
+    'quienes.sol.area3': 'Agricultural digitalisation policies',
+    'quienes.sol.area4': 'Urban agriculture promotion policies',
+
+    // Daniel
+    'quienes.dani.cargo': 'Tenured Scientist at the Institute of Economics, Geography and Demography (IEGD-CSIC)',
+    'quienes.dani.bio': 'His professional career is hybrid, combining research, consultancy, training and activism. This diversity of activities, together with his multidisciplinary background (ecology, sociology), enables a rich combination of perspectives and experiences useful for a transdisciplinary and pluriepistemological approach to sustainable food systems and agroecology research, currently developed within Human Geography. He has extensive knowledge of the research-policy interface and authored the first two compilations on urban food policies in Spain. His hybrid approach to territorialised food systems and policies has enabled him to participate in high-impact global processes: the "Glasgow Declaration on Food and Climate" (COP26), the "Barcelona Good Food and Climate Challenge", the Milan Urban Food Policy Pact (MUFPP) and the 7th Global MUFPP Forum (Barcelona 2021).',
+
+    // Almudena
+    'quienes.almu.cargo': 'Associate Professor at the University of Valladolid',
+    'quienes.almu.bio': 'Agricultural Engineer specialising in Agricultural Economics and Sociology. PhD in Agricultural, Food and Natural Resource Economics.',
     
     // Resources
     'recursos.titulo': 'Publications',
