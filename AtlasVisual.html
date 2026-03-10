@@ -108,8 +108,24 @@
             filter: brightness(1) saturate(1);
         }
 
+        .galeria-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .galeria-item img {
+            flex-shrink: 0;
+        }
+
         .galeria-item-caption {
             padding: 12px 14px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .galeria-item-caption p {
+            flex: 1;
         }
 
         .galeria-item-caption h3 {
