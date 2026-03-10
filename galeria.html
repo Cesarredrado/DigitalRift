@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DigitalRift Project</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* ===== GALERÍA ===== */
+        #galeria {
+            padding: 3rem 2rem 4rem;
+            max-width: 1280px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        #galeria h2 {
+            font-size: 1.4rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #c89c63;
+            margin-bottom: 0.5rem;
+        }
+
+        .galeria-intro {
+            color: #a9b998;
+            font-size: 0.9rem;
+            margin-bottom: 2.5rem;
+        }
+
+        /* Barra de filtros */
+        .filtros {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 2.5rem;
+        }
+
+        .filtro-btn {
+            padding: 6px 18px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.78rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 2px;
+            border: 1px solid rgba(124, 179, 66, 0.3);
+            background: rgba(124, 179, 66, 0.08);
+            color: #b6c3a2;
+            transition: all 0.25s ease;
+        }
+
+        .filtro-btn:hover {
+            background: rgba(124, 179, 66, 0.2);
+            color: #9ad060;
+            border-color: rgba(124, 179, 66, 0.5);
+        }
+
+        .filtro-btn.activo {
+            background: rgba(124, 179, 66, 0.28);
+            border-color: rgba(151, 198, 95, 0.58);
+            color: #f1e3c9;
+            box-shadow: 0 2px 8px rgba(21, 30, 14, 0.32);
+        }
+
+        /* Cuadrícula */
+        .galeria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        /* Tarjeta de imagen */
+        .galeria-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+            border: 1px solid rgba(124, 179, 66, 0.2);
+            background: #1f2b17;
+            cursor: pointer;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+
+        .galeria-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(8, 12, 6, 0.45);
+            border-color: rgba(124, 179, 66, 0.45);
+        }
+
+        .galeria-item.oculto {
+            display: none;
+        }
+
+        .galeria-item img {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            display: block;
+            filter: brightness(0.88) saturate(0.85);
+            transition: filter 0.3s ease;
+        }
+
+        .galeria-item:hover img {
+            filter: brightness(1) saturate(1);
+        }
+
+        .galeria-item-caption {
+            padding: 12px 14px;
+        }
+
+        .galeria-item-caption h3 {
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            color: #88bd54;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+
+        .galeria-item-caption p {
+            font-size: 0.78rem;
+            color: #a9b998;
+            line-height: 1.5;
+        }
+
+        .galeria-item-tag {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 2px 10px;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-radius: 2px;
+            border: 1px solid rgba(124, 179, 66, 0.3);
+            color: #b6c3a2;
+            background: rgba(124, 179, 66, 0.1);
+        }
+
+        /* Sin resultados */
+        .sin-resultados {
+            display: none;
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem 0;
+            color: #67804d;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(13, 20, 10, 0.88);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox.abierto {
+            display: flex;
+        }
+
+        .lightbox-inner {
+            position: relative;
+            max-width: 900px;
+            width: 90%;
+        }
+
+        .lightbox-inner img {
+            width: 100%;
+            border-radius: 4px;
+            border: 1px solid rgba(124, 179, 66, 0.3);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -36px;
+            right: 0;
+            background: none;
+            border: none;
+            color: #8ec05a;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        .lightbox-close:hover {
+            color: #f1e3c9;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1><span class="bracket">[</span> DigitalRift <span class="bracket">]</span></h1>
+    <nav>
+        <ul class="menu">
+            <li><a href="index.html" data-i18n="nav.inicio">Inicio</a></li>
+            <li><a href="quienes.html" data-i18n="nav.quienes">Quiénes Somos</a></li>
+            <li><a href="EviAtlas.html" data-i18n="nav.atlas">Evidence Atlas</a></li>
+            <li><a href="recursos.html" data-i18n="nav.recursos">Publicaciones</a></li>
+            <li><a href="divulgacion.html" data-i18n="nav.divulgacion">Divulgación</a></li>
+        </ul>
+        <div class="idiomas">
+            <a href="#" data-lang="es">ES</a>
+            <span class="separator">|</span>
+            <a href="#" data-lang="en">EN</a>
+        </div>
+    </nav>
+</header>
+
+<section id="galeria">
+    <h2>Galería</h2>
+    <p class="galeria-intro">Imágenes del proyecto DigitalRift.</p>
+
+    <!-- Filtros -->
+    <div class="filtros" id="filtros">
+        <button class="filtro-btn activo" data-filtro="todo">Todos</button>
+        <button class="filtro-btn" data-filtro="campo">Campo</button>
+        <button class="filtro-btn" data-filtro="tecnologia">Tecnología</button>
+        <button class="filtro-btn" data-filtro="equipo">Equipo</button>
+        <button class="filtro-btn" data-filtro="eventos">Eventos</button>
+    </div>
+
+    <!-- Cuadrícula de imágenes -->
+    <div class="galeria-grid" id="galeriaGrid">
+
+        <!-- Ejemplo de tarjetas — sustituir src e info por las imágenes reales -->
+        <div class="galeria-item" data-categoria="campo" data-src="assets/galeria/img-01.jpg">
+            <img src="assets/galeria/img-01.jpg" alt="Imagen 1" loading="lazy">
+            <div class="galeria-item-caption">
+                <h3>Título imagen 1</h3>
+                <p>Descripción breve de la imagen.</p>
+                <span class="galeria-item-tag">Campo</span>
+            </div>
+        </div>
+
+        <div class="galeria-item" data-categoria="tecnologia" data-src="assets/galeria/img-02.jpg">
+            <img src="assets/galeria/img-02.jpg" alt="Imagen 2" loading="lazy">
+            <div class="galeria-item-caption">
+                <h3>Título imagen 2</h3>
+                <p>Descripción breve de la imagen.</p>
+                <span class="galeria-item-tag">Tecnología</span>
+            </div>
+        </div>
+
+        <div class="galeria-item" data-categoria="equipo" data-src="assets/galeria/img-03.jpg">
+            <img src="assets/galeria/img-03.jpg" alt="Imagen 3" loading="lazy">
+            <div class="galeria-item-caption">
+                <h3>Título imagen 3</h3>
+                <p>Descripción breve de la imagen.</p>
+                <span class="galeria-item-tag">Equipo</span>
+            </div>
+        </div>
+
+        <div class="galeria-item" data-categoria="eventos" data-src="assets/galeria/img-04.jpg">
+            <img src="assets/galeria/img-04.jpg" alt="Imagen 4" loading="lazy">
+            <div class="galeria-item-caption">
+                <h3>Título imagen 4</h3>
+                <p>Descripción breve de la imagen.</p>
+                <span class="galeria-item-tag">Eventos</span>
+            </div>
+        </div>
+
+        <div class="galeria-item" data-categoria="campo" data-src="assets/galeria/img-05.jpg">
+            <img src="assets/galeria/img-05.jpg" alt="Imagen 5" loading="lazy">
+            <div class="galeria-item-caption">
+                <h3>Título imagen 5</h3>
+                <p>Descripción breve de la imagen.</p>
+                <span class="galeria-item-tag">Campo</span>
+            </div>
+        </div>
+
+        <div class="galeria-item" data-categoria="tecnologia" data-src="assets/galeria/img-06.jpg">
+            <img src="assets/galeria/img-06.jpg" alt="Imagen 6" loading="lazy">
+            <div class="galeria-item-caption">
+                <h3>Título imagen 6</h3>
+                <p>Descripción breve de la imagen.</p>
+                <span class="galeria-item-tag">Tecnología</span>
+            </div>
+        </div>
+
+        <p class="sin-resultados" id="sinResultados">No hay imágenes para este filtro.</p>
+
+    </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+    <div class="lightbox-inner">
+        <button class="lightbox-close" id="lightboxClose">[ cerrar ]</button>
+        <img src="" alt="" id="lightboxImg">
+    </div>
+</div>
+
+<footer>
+    DigitalRift Project &copy; IEGD-CSIC
+</footer>
+
+<script src="translations.js"></script>
+<script>
+(function () {
+    var filtros = document.querySelectorAll('.filtro-btn');
+    var items = document.querySelectorAll('.galeria-item');
+    var sinResultados = document.getElementById('sinResultados');
+    var lightbox = document.getElementById('lightbox');
+    var lightboxImg = document.getElementById('lightboxImg');
+    var lightboxClose = document.getElementById('lightboxClose');
+
+    // Filtrado
+    filtros.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            filtros.forEach(function (b) { b.classList.remove('activo'); });
+            btn.classList.add('activo');
+
+            var filtro = btn.getAttribute('data-filtro');
+            var visibles = 0;
+
+            items.forEach(function (item) {
+                if (filtro === 'todo' || item.getAttribute('data-categoria') === filtro) {
+                    item.classList.remove('oculto');
+                    visibles++;
+                } else {
+                    item.classList.add('oculto');
+                }
+            });
+
+            sinResultados.style.display = visibles === 0 ? 'block' : 'none';
+        });
+    });
+
+    // Lightbox — abrir
+    items.forEach(function (item) {
+        item.addEventListener('click', function () {
+            var src = item.getAttribute('data-src');
+            var alt = item.querySelector('img').getAttribute('alt');
+            lightboxImg.setAttribute('src', src);
+            lightboxImg.setAttribute('alt', alt);
+            lightbox.classList.add('abierto');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    // Lightbox — cerrar con botón
+    lightboxClose.addEventListener('click', function () {
+        cerrarLightbox();
+    });
+
+    // Lightbox — cerrar con clic en fondo
+    lightbox.addEventListener('click', function (e) {
+        if (e.target === lightbox) {
+            cerrarLightbox();
+        }
+    });
+
+    // Lightbox — cerrar con Escape
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+            cerrarLightbox();
+        }
+    });
+
+    function cerrarLightbox() {
+        lightbox.classList.remove('abierto');
+        lightboxImg.setAttribute('src', '');
+        document.body.style.overflow = '';
+    }
+})();
+</script>
+</body>
+</html>
