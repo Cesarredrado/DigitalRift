@@ -8,7 +8,7 @@ const translations = {
     'nav.divulgacion': 'Divulgación',
     
     // Index
-    'index.proyecto': 'Proyecto',
+    'index.proyecto': 'DigitalRift',
     'index.description': 'El proyecto DigitalRift busca comprender las implicaciones ambientales y socioeconómicas de las políticas públicas de Digitalización de la Agricultura.',
     
     // Quiénes somos
@@ -63,7 +63,7 @@ const translations = {
     'nav.divulgacion': 'Dissemination',
     
     // Index
-    'index.proyecto': 'Project',
+    'index.proyecto': 'DigitalRift',
     'index.description': 'The DigitalRift project seeks to understand the environmental and socio-economic implications of Public policies for the Digitalisation of Agriculture.',
     
     // Who are we
