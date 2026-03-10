@@ -133,6 +133,20 @@
             flex: 1;
         }
 
+        .galeria-item-source {
+            margin-top: 8px;
+            font-size: 0.72rem;
+            color: #c3cfb3;
+            line-height: 1.4;
+            border-top: 1px dashed rgba(124, 179, 66, 0.28);
+            padding-top: 8px;
+        }
+
+        .galeria-item-source strong {
+            color: #d7e5c6;
+            font-weight: 400;
+        }
+
         .galeria-item-caption h3 {
             font-size: 0.85rem;
             letter-spacing: 1px;
@@ -197,6 +211,18 @@
             width: 100%;
             border-radius: 4px;
             border: 1px solid rgba(124, 179, 66, 0.3);
+        }
+
+        .lightbox-meta {
+            margin-top: 10px;
+            color: #b8c6a5;
+            font-size: 0.8rem;
+            line-height: 1.5;
+        }
+
+        .lightbox-meta strong {
+            color: #dce9cc;
+            font-weight: 400;
         }
 
         .lightbox-close {
@@ -267,65 +293,72 @@
     <!-- Cuadrícula de imágenes -->
     <div class="galeria-grid" id="galeriaGrid">
 
-        <div class="galeria-item" data-categoria="Tecnología" data-src="assets/team/001.jpg">
+        <div class="galeria-item" data-categoria="Tecnología" data-src="assets/team/001.jpg" data-fuente="Bojesen, Bo. Dinamarca, 1948.">
             <img src="assets/team/001.jpg" alt="Agricultura mecanizada" loading="lazy">
             <div class="galeria-item-caption">
                 <h3>Agricultura mecanizada</h3>
-                <p>Se propone reemplazar a los hombres en las granjas más grandes con máquinas. Bojesen, Bo. Dinamarca, 1948.</p>
+                <p>Se propone reemplazar a los hombres en las granjas más grandes con máquinas.</p>
+                <p class="galeria-item-source"><strong>Fuente:</strong> Bojesen, Bo. Dinamarca, 1948.</p>
                 <span class="galeria-item-tag">Tecnología</span>
             </div>
         </div>
 
-        <div class="galeria-item" data-categoria="Tecnología" data-src="assets/team/002.jpg">
+        <div class="galeria-item" data-categoria="Tecnología" data-src="assets/team/002.jpg" data-fuente="Bojesen, Bo. Dinamarca, 1959.">
             <img src="assets/team/002.jpg" alt="Técnica superior (Top-teknik)" loading="lazy">
             <div class="galeria-item-caption">
                 <h3>Técnica superior (Top-teknik)</h3>
-                <p>Exposición en Herning sobre la granja del futuro completamente automatizada con botones. Bojesen, Bo. Dinamarca, 1959.</p>
+                <p>Exposición en Herning sobre la granja del futuro completamente automatizada con botones.</p>
+                <p class="galeria-item-source"><strong>Fuente:</strong> Bojesen, Bo. Dinamarca, 1959.</p>
                 <span class="galeria-item-tag">Tecnología</span>
             </div>
         </div>
 
-        <div class="galeria-item" data-categoria="Género" data-src="assets/team/003.jpg">
+        <div class="galeria-item" data-categoria="Género" data-src="assets/team/003.jpg" data-fuente="Pando Barrero, Juan Miguel. Aranjuez, España.">
             <img src="assets/team/003.jpg" alt="Mujer montada en tractor – Sección Femenina" loading="lazy">
             <div class="galeria-item-caption">
                 <h3>Mujer montada en tractor – Sección Femenina</h3>
-                <p>Inaugurada en 1951, la Cátedra Ambulante ofrecía la única titulación oficial equivalente a "perito agrícola". Pando Barrero, Juan Miguel. Aranjuez, España.</p>
+                <p>Inaugurada en 1951, la Cátedra Ambulante ofrecía la única titulación oficial equivalente a "perito agrícola".</p>
+                <p class="galeria-item-source"><strong>Fuente:</strong> Pando Barrero, Juan Miguel. Aranjuez, España.</p>
                 <span class="galeria-item-tag">Género</span>
             </div>
         </div>
 
-        <div class="galeria-item" data-categoria="España" data-src="assets/team/004.jpg">
+        <div class="galeria-item" data-categoria="España" data-src="assets/team/004.jpg" data-fuente="Pando Barrero, Juan Miguel. Huelva, España, 1969.">
             <img src="assets/team/004.jpg" alt="Fábrica Fertiberia. Huelva (I)" loading="lazy">
             <div class="galeria-item-caption">
                 <h3>Fábrica Fertiberia. Huelva (I)</h3>
-                <p>Vista de una nave con arena en el interior de las instalaciones de la fábrica de abonos. Pando Barrero, Juan Miguel. Huelva, España, 1969.</p>
+                <p>Vista de una nave con arena en el interior de las instalaciones de la fábrica de abonos.</p>
+                <p class="galeria-item-source"><strong>Fuente:</strong> Pando Barrero, Juan Miguel. Huelva, España, 1969.</p>
                 <span class="galeria-item-tag">España</span>
             </div>
         </div>
 
-        <div class="galeria-item" data-categoria="España" data-src="assets/team/005.jpg">
+        <div class="galeria-item" data-categoria="España" data-src="assets/team/005.jpg" data-fuente="Pando Barrero, Juan Miguel. Huelva, España, 1969.">
             <img src="assets/team/005.jpg" alt="Fábrica Fertiberia. Huelva (II)" loading="lazy">
             <div class="galeria-item-caption">
                 <h3>Fábrica Fertiberia. Huelva (II)</h3>
-                <p>Vista de un operario cargando arena con una pala en las instalaciones de la fábrica de abonos. Pando Barrero, Juan Miguel. Huelva, España, 1969.</p>
+                <p>Vista de un operario cargando arena con una pala en las instalaciones de la fábrica de abonos.</p>
+                <p class="galeria-item-source"><strong>Fuente:</strong> Pando Barrero, Juan Miguel. Huelva, España, 1969.</p>
                 <span class="galeria-item-tag">España</span>
             </div>
         </div>
 
-        <div class="galeria-item" data-categoria="España" data-src="assets/team/006.jpg">
+        <div class="galeria-item" data-categoria="España" data-src="assets/team/006.jpg" data-fuente="Pando Barrero, Juan Miguel. Badajoz, España, 1961.">
             <img src="assets/team/006.jpg" alt="Presa de García de Sola" loading="lazy">
             <div class="galeria-item-caption">
                 <h3>Presa de García de Sola</h3>
-                <p>Detalle de la pared de hormigón donde se están construyendo los contrafuertes con obreros colgados. Pando Barrero, Juan Miguel. Badajoz, España, 1961.</p>
+                <p>Detalle de la pared de hormigón donde se están construyendo los contrafuertes con obreros colgados.</p>
+                <p class="galeria-item-source"><strong>Fuente:</strong> Pando Barrero, Juan Miguel. Badajoz, España, 1961.</p>
                 <span class="galeria-item-tag">España</span>
             </div>
         </div>
 
-        <div class="galeria-item" data-categoria="Género" data-src="assets/team/007.jpg">
+        <div class="galeria-item" data-categoria="Género" data-src="assets/team/007.jpg" data-fuente="Pando Barrero, Juan Miguel. Aranjuez, España, 1967.">
             <img src="assets/team/007.jpg" alt="Escuela de Instructoras Rurales 'Onésimo Redondo'" loading="lazy">
             <div class="galeria-item-caption">
                 <h3>Escuela de Instructoras Rurales "Onésimo Redondo"</h3>
-                <p>Alumna conduce un tractor. Única titulación oficial equivalente a "perito agrícola". Pando Barrero, Juan Miguel. Aranjuez, España, 1967.</p>
+                <p>Alumna conduce un tractor. Única titulación oficial equivalente a "perito agrícola".</p>
+                <p class="galeria-item-source"><strong>Fuente:</strong> Pando Barrero, Juan Miguel. Aranjuez, España, 1967.</p>
                 <span class="galeria-item-tag">Género</span>
             </div>
         </div>
@@ -340,6 +373,7 @@
     <div class="lightbox-inner">
         <button class="lightbox-close" id="lightboxClose">[ cerrar ]</button>
         <img src="" alt="" id="lightboxImg">
+        <p class="lightbox-meta" id="lightboxFuente"></p>
     </div>
 </div>
 
@@ -356,6 +390,7 @@
     var lightbox = document.getElementById('lightbox');
     var lightboxImg = document.getElementById('lightboxImg');
     var lightboxClose = document.getElementById('lightboxClose');
+    var lightboxFuente = document.getElementById('lightboxFuente');
 
     // Filtrado
     filtros.forEach(function (btn) {
@@ -384,8 +419,10 @@
         item.addEventListener('click', function () {
             var src = item.getAttribute('data-src');
             var alt = item.querySelector('img').getAttribute('alt');
+            var fuente = item.getAttribute('data-fuente') || '';
             lightboxImg.setAttribute('src', src);
             lightboxImg.setAttribute('alt', alt);
+            lightboxFuente.innerHTML = fuente ? '<strong>Fuente:</strong> ' + fuente : '';
             lightbox.classList.add('abierto');
             document.body.style.overflow = 'hidden';
         });
@@ -413,6 +450,7 @@
     function cerrarLightbox() {
         lightbox.classList.remove('abierto');
         lightboxImg.setAttribute('src', '');
+        lightboxFuente.textContent = '';
         document.body.style.overflow = '';
     }
 })();
