@@ -4596,6 +4596,8 @@ line-height: 30px;
       return false;
     }
 
+    map.invalidateSize();
+
     if (map.scrollWheelZoom) {
       map.scrollWheelZoom.disable();
     }

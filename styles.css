@@ -361,8 +361,23 @@ footer span.status {
 
 /* ===== ATLAS PAGE ===== */
 #atlas-container {
+  position: relative;
+  z-index: 1;
   width: 100%;
-  height: auto;
+  max-width: none;
+  min-height: 600px;
+  padding: 0;
+  margin: 1rem auto;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+  overflow: visible;
+}
+
+#atlas-container::before {
+  display: none;
 }
 
 /* Botón volver */
