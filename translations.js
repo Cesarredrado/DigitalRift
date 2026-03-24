@@ -10,7 +10,7 @@ const translations = {
     // Index
     'index.proyecto': 'DigitalRift',
     'index.description': 'El proyecto DigitalRift busca comprender las implicaciones ambientales y socioeconómicas de las políticas públicas de Digitalización de la Agricultura.',
-    'index.marcoLogico': 'MarcoLogico.drawio.png',
+    'index.marcoLogico': '/MarcoLogico.drawio.png',
     
     // Quiénes somos
     'quienes.titulo': 'Quiénes Somos',
@@ -66,7 +66,7 @@ const translations = {
     // Index
     'index.proyecto': 'DigitalRift',
     'index.description': 'The DigitalRift project seeks to understand the environmental and socio-economic implications of Public policies for the Digitalisation of Agriculture.',
-    'index.marcoLogico': 'LogicalFramework.drawio.png',
+    'index.marcoLogico': '/LogicalFramework.drawio.png',
     
     // Who are we
     'quienes.titulo': 'Who are we?',
