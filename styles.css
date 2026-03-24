@@ -399,6 +399,22 @@ section img {
   border-bottom-color: #b7dd82;
 }
 
+.contact-subtitle {
+  margin-top: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #d3a467;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.contact-address {
+  max-width: 780px;
+  margin: 0.2rem auto 0;
+  color: #c3cfb5;
+  line-height: 1.75;
+}
+
 /* ===== STATUS BAR / FOOTER ===== */
 footer {
   position: relative;

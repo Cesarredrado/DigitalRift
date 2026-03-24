@@ -6,6 +6,7 @@ const translations = {
     'nav.atlas': 'Evidence Atlas',
     'nav.recursos': 'Publicaciones',
     'nav.divulgacion': 'Divulgación',
+    'nav.contacto': 'Contacto',
     
     // Index
     'index.proyecto': 'DigitalRift',
@@ -14,6 +15,8 @@ const translations = {
     'index.contactTitle': 'Contacto',
     'index.contactDescription': 'Para consultas del proyecto, escríbenos directamente por correo.',
     'index.contactButton': 'Enviar correo',
+    'index.addressTitle': 'Dirección',
+    'index.addressText': 'Instituto de Economía, Geografía y Demografía (IEGD), Centro de Ciencias Humanas y Sociales (CCHS),<br>Centro Superior de Investigaciones Científicas (CSIC), C. de Albansanz, 26, San Blas-Canillejas, 28037 Madrid',
 
     // Footer
     'footer.copyright': '© 2026 DigitalRift Project - IEGD-CSIC. Todos los derechos reservados.',
@@ -54,6 +57,12 @@ const translations = {
     // Divulgación
     'divulgacion.titulo': 'Divulgación',
     'divulgacion.content': 'Próximamente...',
+
+    // Contacto
+    'contacto.titulo': 'Contacto',
+    'contacto.emailLabel': 'Correo electrónico:',
+    'contacto.addressTitle': 'Dirección',
+    'contacto.addressText': 'Instituto de Economía, Geografía y Demografía (IEGD), Centro de Ciencias Humanas y Sociales (CCHS),<br>Centro Superior de Investigaciones Científicas (CSIC), C. de Albansanz, 26, San Blas-Canillejas, 28037 Madrid',
     
     // EviAtlas
     'atlas.sobre': 'Sobre este Evidence Atlas',
@@ -68,6 +77,7 @@ const translations = {
     'nav.atlas': 'Evidence Atlas',
     'nav.recursos': 'Publications',
     'nav.divulgacion': 'Dissemination',
+    'nav.contacto': 'Contact',
     
     // Index
     'index.proyecto': 'DigitalRift',
@@ -76,6 +86,8 @@ const translations = {
     'index.contactTitle': 'Contact',
     'index.contactDescription': 'For project-related questions, contact us directly by email.',
     'index.contactButton': 'Send email',
+    'index.addressTitle': 'Address',
+    'index.addressText': 'Institute of Economics, Geography and Demography (IEGD), Centre for Human and Social Sciences (CCHS),<br>Spanish National Research Council (CSIC), C. de Albansanz, 26, San Blas-Canillejas, 28037 Madrid',
 
     // Footer
     'footer.copyright': '© 2026 DigitalRift Project - IEGD-CSIC. All rights reserved.',
@@ -116,6 +128,12 @@ const translations = {
     // Dissemination
     'divulgacion.titulo': 'Dissemination',
     'divulgacion.content': 'Coming soon...',
+
+    // Contact
+    'contacto.titulo': 'Contact',
+    'contacto.emailLabel': 'Email:',
+    'contacto.addressTitle': 'Address',
+    'contacto.addressText': 'Institute of Economics, Geography and Demography (IEGD), Centre for Human and Social Sciences (CCHS),<br>Spanish National Research Council (CSIC), C. de Albansanz, 26, San Blas-Canillejas, 28037 Madrid',
     
     // EviAtlas
     'atlas.sobre': 'About this Evidence Atlas',
