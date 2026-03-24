@@ -78,6 +78,7 @@ header h1 a.logo {
   text-decoration: none;
   transition: all 0.3s ease;
   display: inline-block;
+  text-shadow: 0 0 12px rgba(124, 179, 66, 0.35);
 }
 
 header h1 a.logo:hover {
