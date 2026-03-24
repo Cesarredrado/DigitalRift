@@ -387,7 +387,7 @@ section img {
 
 .contact-mail-address {
   display: inline-block;
-  margin-top: 0;
+  margin-top: 0.35rem;
   margin-bottom: 0;
   font-size: 0.9rem;
   color: #c3cfb5;
@@ -411,7 +411,7 @@ section img {
 
 .contact-address {
   max-width: none;
-  margin: 0;
+  margin: 0.35rem 0 0;
   color: #c3cfb5;
   line-height: 1.55;
 }
@@ -424,8 +424,13 @@ section img {
   text-align: left;
 }
 
+.contact-grid.parallel-columns {
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+}
+
 .contact-item {
-  padding: 0.8rem 0.9rem;
+  padding: 0.9rem 1rem;
   border: 1px solid rgba(124, 179, 66, 0.22);
   background: rgba(26, 37, 19, 0.45);
   border-radius: 3px;
