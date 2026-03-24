@@ -385,10 +385,18 @@ section img {
 }
 
 .contact-mail-address {
+  display: inline-block;
   margin-top: 0.75rem;
   margin-bottom: 0;
   font-size: 0.9rem;
   color: #c3cfb5;
+  border-bottom: 1px solid rgba(151, 198, 95, 0.45);
+  padding-bottom: 2px;
+}
+
+.contact-mail-address:hover {
+  color: #ffffff;
+  border-bottom-color: #b7dd82;
 }
 
 /* ===== STATUS BAR / FOOTER ===== */
