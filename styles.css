@@ -384,6 +384,13 @@ section img {
   transform: translateY(-1px);
 }
 
+.contact-mail-address {
+  margin-top: 0.75rem;
+  margin-bottom: 0;
+  font-size: 0.9rem;
+  color: #c3cfb5;
+}
+
 /* ===== STATUS BAR / FOOTER ===== */
 footer {
   position: relative;

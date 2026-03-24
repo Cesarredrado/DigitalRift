@@ -13,6 +13,7 @@ const translations = {
     'index.marcoLogico': '/MarcoLogico.drawio.png',
     'index.contactTitle': 'Contacto',
     'index.contactDescription': 'Para consultas del proyecto, escríbenos directamente por correo.',
+    'index.contactButton': 'Enviar correo',
 
     // Footer
     'footer.copyright': '© 2026 DigitalRift Project - IEGD-CSIC. Todos los derechos reservados.',
@@ -74,6 +75,7 @@ const translations = {
     'index.marcoLogico': '/LogicalFramework.drawio.png',
     'index.contactTitle': 'Contact',
     'index.contactDescription': 'For project-related questions, contact us directly by email.',
+    'index.contactButton': 'Send email',
 
     // Footer
     'footer.copyright': '© 2026 DigitalRift Project - IEGD-CSIC. All rights reserved.',
