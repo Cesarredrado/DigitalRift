@@ -343,10 +343,11 @@ section img {
 }
 
 .contact-quadrant {
-  max-width: 520px;
+  max-width: 980px;
   margin: 2.5rem auto;
   text-align: center;
   background: rgba(24, 34, 18, 0.88);
+  padding: 1.5rem 1.8rem;
 }
 
 .contact-quadrant::before {
@@ -386,7 +387,7 @@ section img {
 
 .contact-mail-address {
   display: inline-block;
-  margin-top: 0.75rem;
+  margin-top: 0;
   margin-bottom: 0;
   font-size: 0.9rem;
   color: #c3cfb5;
@@ -400,7 +401,7 @@ section img {
 }
 
 .contact-subtitle {
-  margin-top: 1.2rem;
+  margin-top: 0;
   margin-bottom: 0.5rem;
   color: #d3a467;
   font-size: 0.95rem;
@@ -409,10 +410,25 @@ section img {
 }
 
 .contact-address {
-  max-width: 780px;
-  margin: 0.2rem auto 0;
+  max-width: none;
+  margin: 0;
   color: #c3cfb5;
-  line-height: 1.75;
+  line-height: 1.55;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.9fr;
+  gap: 0.8rem;
+  margin-top: 0.8rem;
+  text-align: left;
+}
+
+.contact-item {
+  padding: 0.8rem 0.9rem;
+  border: 1px solid rgba(124, 179, 66, 0.22);
+  background: rgba(26, 37, 19, 0.45);
+  border-radius: 3px;
 }
 
 /* ===== STATUS BAR / FOOTER ===== */
@@ -635,12 +651,21 @@ a:hover {
 
   .contact-quadrant {
     margin: 1.5rem 1rem;
+    padding: 1.1rem;
   }
 
   .contact-mail-button {
     font-size: 0.86rem;
     padding: 0.65rem 0.9rem;
     word-break: break-all;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-item {
+    padding: 0.7rem 0.75rem;
   }
 
   .hero h2 {
