@@ -73,6 +73,18 @@ header h1 {
   text-shadow: 0 0 12px rgba(124, 179, 66, 0.35);
 }
 
+header h1 a.logo {
+  color: #8fc45a;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+header h1 a.logo:hover {
+  color: #9ad060;
+  text-shadow: 0 0 16px rgba(124, 179, 66, 0.5);
+}
+
 header h1 .bracket {
   color: #c89c63;
   font-weight: 400;
