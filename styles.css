@@ -682,6 +682,10 @@ a:hover {
     grid-template-columns: 1fr;
   }
 
+  .contact-grid.parallel-columns {
+    grid-template-columns: 1fr;
+  }
+
   .contact-item {
     padding: 0.7rem 0.75rem;
   }
