@@ -57,6 +57,13 @@ const translations = {
     // Divulgación
     'divulgacion.titulo': 'Divulgación',
     'divulgacion.content': 'Próximamente...',
+    'divulgacion.congresosTitulo': 'Presentaciones en congresos',
+    'divulgacion.congreso1': '2026/04/24 - Systematic mapping of the implications of agricultural digitization policies in the European Union. XVI Congress of Agroecology and Ecological Agriculture. Pamplona (Spain) (pendiente).',
+    'divulgacion.congreso2': '2026/03/19 - Imaginaries of Agricultural Digitalisation: A Visual Atlas. IEGD Work In Progress (WIP) Seminars.',
+    'divulgacion.congreso3': '2026/02/26 - Systematic mapping of the implications of agricultural digitization policies in the European Union. III CCHS Predoctoral workshops.',
+    'divulgacion.congreso4': '2025/11/10-14 - Regional Youth Workshop on the Intergovernmental Science-Policy Platform for Biodiversity and Ecosystem Services (IPBES) for Europe and Central Asia 2025 (Attendant & Case Study Speaker). Isle of Vilm, Germany.',
+    'divulgacion.congreso5': '2025/07/08 - Implications of public policy interventions for the digitalisation of European Agriculture. A systematic map (Attendant & Speaker). European Society of Rural Sociology (ESRS) Congress 2025. Riga, Latvia.',
+    'divulgacion.congreso6': '2025/07/08 - Developing evaluation guidelines for agricultural digitalisaton policies. Riga, Latvia.',
 
     // Contacto
     'contacto.titulo': 'Contacto',
@@ -128,6 +135,13 @@ const translations = {
     // Dissemination
     'divulgacion.titulo': 'Dissemination',
     'divulgacion.content': 'Coming soon...',
+    'divulgacion.congresosTitulo': 'Conference Presentations',
+    'divulgacion.congreso1': '2026/04/24 - Systematic mapping of the implications of agricultural digitization policies in the European Union. XVI Congress of Agroecology and Ecological Agriculture. Pamplona (Spain) (pending).',
+    'divulgacion.congreso2': '2026/03/19 - Imaginaries of Agricultural Digitalisation: A Visual Atlas. IEGD Work In Progress (WIP) Seminars.',
+    'divulgacion.congreso3': '2026/02/26 - Systematic mapping of the implications of agricultural digitization policies in the European Union. III CCHS Predoctoral workshops.',
+    'divulgacion.congreso4': '2025/11/10-14 - Regional Youth Workshop on the Intergovernmental Science-Policy Platform for Biodiversity and Ecosystem Services (IPBES) for Europe and Central Asia 2025 (Attendant & Case Study Speaker). Isle of Vilm, Germany.',
+    'divulgacion.congreso5': '2025/07/08 - Implications of public policy interventions for the digitalisation of European Agriculture. A systematic map (Attendant & Speaker). European Society of Rural Sociology (ESRS) Congress 2025. Riga, Latvia.',
+    'divulgacion.congreso6': '2025/07/08 - Developing evaluation guidelines for agricultural digitalisaton policies. Riga, Latvia.',
 
     // Contact
     'contacto.titulo': 'Contact',
