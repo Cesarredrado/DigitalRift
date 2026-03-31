@@ -316,6 +316,105 @@ section img {
   word-break: break-word;
 }
 
+/* ===== DISSEMINATION TIMELINE ===== */
+#divulgacion {
+  background:
+    radial-gradient(circle at top right, rgba(200, 156, 99, 0.14), transparent 34%),
+    rgba(29, 40, 21, 0.86);
+}
+
+.dissemination-section {
+  margin-top: 1rem;
+  padding: 1.1rem 1.1rem 1.2rem;
+  border: 1px solid rgba(124, 179, 66, 0.22);
+  border-radius: 4px;
+  background: rgba(21, 30, 15, 0.6);
+}
+
+.dissemination-section h3 {
+  margin: 0 0 1rem;
+  color: #d3a467;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.timeline-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 1.25rem;
+  position: relative;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.timeline-list::before {
+  content: '';
+  position: absolute;
+  left: 0.35rem;
+  top: 0.2rem;
+  bottom: 0.2rem;
+  width: 2px;
+  background: linear-gradient(180deg, rgba(142, 192, 90, 0.95), rgba(142, 192, 90, 0.1));
+}
+
+.timeline-item {
+  position: relative;
+  display: grid;
+  gap: 0.3rem;
+  padding: 0.7rem 0.85rem;
+  background: rgba(24, 34, 18, 0.8);
+  border: 1px solid rgba(124, 179, 66, 0.18);
+  border-radius: 4px;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -1.08rem;
+  top: 0.9rem;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #d3a467;
+  border: 2px solid #203017;
+  box-shadow: 0 0 0 2px rgba(211, 164, 103, 0.25);
+}
+
+.timeline-date {
+  display: inline-block;
+  width: fit-content;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(124, 179, 66, 0.2);
+  color: #a8d27a;
+  border: 1px solid rgba(124, 179, 66, 0.35);
+  font-size: 0.78rem;
+  letter-spacing: 0.8px;
+}
+
+.timeline-text {
+  color: #d4ddc7;
+  line-height: 1.7;
+  font-size: 0.92rem;
+}
+
+.timeline-tag {
+  display: inline-block;
+  margin-left: 0.3rem;
+  padding: 1px 7px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.timeline-tag.pending {
+  color: #ffe8c7;
+  border: 1px solid rgba(211, 164, 103, 0.5);
+  background: rgba(200, 156, 99, 0.2);
+}
+
 /* ===== HERO SECTION (index page) ===== */
 .hero {
   text-align: center;
@@ -711,6 +810,18 @@ a:hover {
     width: 150px;
     height: 150px;
     justify-self: center;
+  }
+
+  .timeline-list {
+    padding-left: 1rem;
+  }
+
+  .timeline-item {
+    padding: 0.65rem 0.7rem;
+  }
+
+  .timeline-date {
+    font-size: 0.75rem;
   }
 }
 
