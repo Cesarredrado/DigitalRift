@@ -401,6 +401,29 @@ section img {
   font-size: 0.92rem;
 }
 
+.timeline-text strong {
+  color: #f2e0c5;
+  font-weight: 600;
+}
+
+.timeline-meta {
+  display: inline-block;
+  margin-top: 0.2rem;
+  color: #b9c9a3;
+  font-size: 0.84rem;
+}
+
+.timeline-text a {
+  margin-left: 0.35rem;
+  color: #d3a467;
+  border-bottom: 1px solid rgba(211, 164, 103, 0.45);
+}
+
+.timeline-text a:hover {
+  color: #f1c386;
+  border-bottom-color: rgba(241, 195, 134, 0.75);
+}
+
 .timeline-tag {
   display: inline-block;
   margin-left: 0.3rem;
