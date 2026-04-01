@@ -35,6 +35,8 @@ function createAboutDropdown() {
     return;
   }
 
+  ensureBaseNavigation();
+
   buildDropdown('que-es-cascarrias.html', [
     {
       suffix: 'mision-vision-valores.html',
@@ -82,6 +84,38 @@ function createAboutDropdown() {
   ]);
 }
 
+function ensureBaseNavigation() {
+  const homeLink = Array.from(nav.querySelectorAll('a')).find((link) =>
+    link.getAttribute('href')?.includes('index.html')
+  );
+  const basePath = homeLink
+    ? (homeLink.getAttribute('href') || '').replace(/index\.html.*$/, '')
+    : '';
+
+  const requiredLinks = [
+    { target: 'index.html', es: 'Inicio', en: 'Home' },
+    { target: 'que-es-cascarrias.html', es: '?Que es Cascarrias?', en: 'What is Cascarrias?' },
+    { target: 'noticias.html', es: 'Noticias', en: 'News' },
+    { target: 'recursos.html', es: 'Recursos', en: 'Resources' },
+    { target: 'contacto.html', es: 'Contacto', en: 'Contact' },
+  ];
+
+  requiredLinks.forEach((item) => {
+    const exists = Array.from(nav.querySelectorAll('a')).some((link) =>
+      link.getAttribute('href')?.includes(item.target)
+    );
+
+    if (!exists) {
+      const link = document.createElement('a');
+      link.href = `${basePath}${item.target}`;
+      link.dataset.es = item.es;
+      link.dataset.en = item.en;
+      link.textContent = item.es;
+      nav.appendChild(link);
+    }
+  });
+}
+
 function buildDropdown(linkTarget, submenuItems) {
   const triggerLink = Array.from(nav.querySelectorAll('a')).find((link) =>
     link.getAttribute('href')?.includes(linkTarget)
@@ -105,7 +139,7 @@ function buildDropdown(linkTarget, submenuItems) {
   toggle.className = 'nav-dropdown-toggle';
   toggle.setAttribute('aria-label', 'Abrir submenus');
   toggle.setAttribute('aria-expanded', 'false');
-  toggle.textContent = '▾';
+  toggle.textContent = 'v';
 
   const menu = document.createElement('div');
   menu.className = 'nav-dropdown-menu';
@@ -128,7 +162,7 @@ function buildDropdown(linkTarget, submenuItems) {
   dropdown.appendChild(toggle);
   dropdown.appendChild(menu);
 
-  nav.insertBefore(dropdown, triggerLink.nextSibling);
+  nav.replaceChild(dropdown, triggerLink);
 }
 
 function applyLanguage(lang) {
