@@ -30,6 +30,63 @@ function createLanguageSwitcher() {
   nav.appendChild(wrapper);
 }
 
+function createAboutDropdown() {
+  if (!nav || nav.querySelector('.nav-dropdown')) {
+    return;
+  }
+
+  const aboutLink = Array.from(nav.querySelectorAll('a')).find((link) =>
+    link.getAttribute('href')?.includes('que-es-cascarrias.html')
+  );
+
+  if (!aboutLink) {
+    return;
+  }
+
+  const href = aboutLink.getAttribute('href') || '';
+  const basePath = href.replace(/que-es-cascarrias\.html.*$/, '');
+
+  const dropdown = document.createElement('div');
+  dropdown.className = 'nav-dropdown';
+
+  aboutLink.classList.add('nav-dropdown-trigger');
+  aboutLink.setAttribute('aria-haspopup', 'true');
+  dropdown.appendChild(aboutLink);
+
+  const menu = document.createElement('div');
+  menu.className = 'nav-dropdown-menu';
+
+  const submenuItems = [
+    {
+      href: `${basePath}mision-vision-valores.html`,
+      es: 'Mision, Vision y Valores',
+      en: 'Mission, Vision and Values',
+    },
+    {
+      href: `${basePath}equipo.html`,
+      es: 'Equipo',
+      en: 'Team',
+    },
+    {
+      href: `${basePath}colaboraciones.html`,
+      es: 'Colaboraciones',
+      en: 'Collaborations',
+    },
+  ];
+
+  submenuItems.forEach((item) => {
+    const link = document.createElement('a');
+    link.href = item.href;
+    link.dataset.es = item.es;
+    link.dataset.en = item.en;
+    link.textContent = item.es;
+    menu.appendChild(link);
+  });
+
+  dropdown.appendChild(menu);
+  nav.insertBefore(dropdown, nav.firstChild.nextSibling);
+}
+
 function applyLanguage(lang) {
   const selected = LANGS.includes(lang) ? lang : 'es';
   document.documentElement.lang = selected;
@@ -59,6 +116,7 @@ function applyLanguage(lang) {
   });
 }
 
+createAboutDropdown();
 createLanguageSwitcher();
 const savedLanguage = localStorage.getItem('siteLanguage') || 'es';
 applyLanguage(savedLanguage);
