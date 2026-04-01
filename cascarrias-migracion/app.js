@@ -84,7 +84,14 @@ function createAboutDropdown() {
   });
 
   dropdown.appendChild(menu);
-  nav.insertBefore(dropdown, nav.firstChild.nextSibling);
+
+  const navLinks = Array.from(nav.querySelectorAll('a'));
+  const homeLink = navLinks.find((link) => link.getAttribute('href')?.includes('index.html'));
+  if (homeLink && homeLink.nextSibling) {
+    nav.insertBefore(dropdown, homeLink.nextSibling);
+  } else {
+    nav.appendChild(dropdown);
+  }
 }
 
 function applyLanguage(lang) {
