@@ -50,26 +50,15 @@ body {
 .brand {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0;
   color: var(--ink-deep);
   text-decoration: none;
 }
 
-.brand-mark {
-  width: 2rem;
-  height: 2rem;
-  border-radius: 999px;
-  display: grid;
-  place-items: center;
-  color: #f6ede3;
-  background: linear-gradient(130deg, var(--accent-primary), var(--accent-light));
-  font-weight: 700;
-}
-
-.brand-text {
-  font-family: "Nautica", "Nautica Book", "Nautica Rounded", sans-serif;
-  font-size: 1.5rem;
-  font-weight: 600;
+.brand-logo {
+  display: block;
+  width: clamp(150px, 18vw, 220px);
+  height: auto;
 }
 
 .menu-toggle {

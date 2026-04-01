@@ -22,7 +22,7 @@ function createLanguageSwitcher() {
     button.type = 'button';
     button.className = 'lang-button';
     button.dataset.lang = lang;
-    button.textContent = lang.toUpperCase();
+    button.textContent = lang === 'es' ? 'CAS' : 'ENG';
     button.addEventListener('click', () => applyLanguage(lang));
     wrapper.appendChild(button);
   });
