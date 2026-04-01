@@ -31,67 +31,104 @@ function createLanguageSwitcher() {
 }
 
 function createAboutDropdown() {
-  if (!nav || nav.querySelector('.nav-dropdown')) {
+  if (!nav) {
     return;
   }
 
-  const aboutLink = Array.from(nav.querySelectorAll('a')).find((link) =>
-    link.getAttribute('href')?.includes('que-es-cascarrias.html')
-  );
-
-  if (!aboutLink) {
-    return;
-  }
-
-  const href = aboutLink.getAttribute('href') || '';
-  const basePath = href.replace(/que-es-cascarrias\.html.*$/, '');
-
-  const dropdown = document.createElement('div');
-  dropdown.className = 'nav-dropdown';
-
-  aboutLink.classList.add('nav-dropdown-trigger');
-  aboutLink.setAttribute('aria-haspopup', 'true');
-  dropdown.appendChild(aboutLink);
-
-  const menu = document.createElement('div');
-  menu.className = 'nav-dropdown-menu';
-
-  const submenuItems = [
+  buildDropdown('que-es-cascarrias.html', [
     {
-      href: `${basePath}mision-vision-valores.html`,
+      suffix: 'mision-vision-valores.html',
       es: 'Mision, Vision y Valores',
       en: 'Mission, Vision and Values',
     },
     {
-      href: `${basePath}equipo.html`,
+      suffix: 'equipo.html',
       es: 'Equipo',
       en: 'Team',
     },
     {
-      href: `${basePath}colaboraciones.html`,
+      suffix: 'colaboraciones.html',
       es: 'Colaboraciones',
       en: 'Collaborations',
     },
-  ];
+  ]);
+
+  buildDropdown('recursos.html', [
+    {
+      suffix: 'recursos/documental-feliz-vida-de-miseria.html',
+      es: 'Documental "Feliz Vida de Miseria"',
+      en: 'Documentary "Feliz Vida de Miseria"',
+    },
+    {
+      suffix: 'recursos/archivo-audiovisual.html',
+      es: 'Archivo audiovisual',
+      en: 'Audiovisual archive',
+    },
+    {
+      suffix: 'recursos/senderos-bioculturales.html',
+      es: 'Senderos bioculturales',
+      en: 'Biocultural trails',
+    },
+    {
+      suffix: 'recursos/mapa-interactivo.html',
+      es: 'Mapa interactivo',
+      en: 'Interactive map',
+    },
+    {
+      suffix: 'recursos/etnografia-ciudadana.html',
+      es: 'Etnografia ciudadana',
+      en: 'Citizen ethnography',
+    },
+  ]);
+}
+
+function buildDropdown(linkTarget, submenuItems) {
+  const triggerLink = Array.from(nav.querySelectorAll('a')).find((link) =>
+    link.getAttribute('href')?.includes(linkTarget)
+  );
+
+  if (!triggerLink || triggerLink.closest('.nav-dropdown')) {
+    return;
+  }
+
+  const href = triggerLink.getAttribute('href') || '';
+  const basePath = href.replace(linkTarget, '');
+
+  const dropdown = document.createElement('div');
+  dropdown.className = 'nav-dropdown';
+
+  triggerLink.classList.add('nav-dropdown-trigger');
+  triggerLink.setAttribute('aria-haspopup', 'true');
+
+  const toggle = document.createElement('button');
+  toggle.type = 'button';
+  toggle.className = 'nav-dropdown-toggle';
+  toggle.setAttribute('aria-label', 'Abrir submenus');
+  toggle.setAttribute('aria-expanded', 'false');
+  toggle.textContent = '▾';
+
+  const menu = document.createElement('div');
+  menu.className = 'nav-dropdown-menu';
 
   submenuItems.forEach((item) => {
     const link = document.createElement('a');
-    link.href = item.href;
+    link.href = `${basePath}${item.suffix}`;
     link.dataset.es = item.es;
     link.dataset.en = item.en;
     link.textContent = item.es;
     menu.appendChild(link);
   });
 
+  toggle.addEventListener('click', () => {
+    const isOpen = dropdown.classList.toggle('is-open');
+    toggle.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  dropdown.appendChild(triggerLink);
+  dropdown.appendChild(toggle);
   dropdown.appendChild(menu);
 
-  const navLinks = Array.from(nav.querySelectorAll('a'));
-  const homeLink = navLinks.find((link) => link.getAttribute('href')?.includes('index.html'));
-  if (homeLink && homeLink.nextSibling) {
-    nav.insertBefore(dropdown, homeLink.nextSibling);
-  } else {
-    nav.appendChild(dropdown);
-  }
+  nav.insertBefore(dropdown, triggerLink.nextSibling);
 }
 
 function applyLanguage(lang) {
