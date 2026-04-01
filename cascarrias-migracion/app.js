@@ -1,5 +1,6 @@
 const menuButton = document.querySelector('.menu-toggle');
 const nav = document.querySelector('.main-nav');
+const LANGS = ['es', 'en'];
 
 if (menuButton && nav) {
   menuButton.addEventListener('click', () => {
@@ -7,3 +8,57 @@ if (menuButton && nav) {
     menuButton.setAttribute('aria-expanded', String(isOpen));
   });
 }
+
+function createLanguageSwitcher() {
+  if (!nav || nav.querySelector('.lang-switch')) {
+    return;
+  }
+
+  const wrapper = document.createElement('div');
+  wrapper.className = 'lang-switch';
+
+  LANGS.forEach((lang) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'lang-button';
+    button.dataset.lang = lang;
+    button.textContent = lang.toUpperCase();
+    button.addEventListener('click', () => applyLanguage(lang));
+    wrapper.appendChild(button);
+  });
+
+  nav.appendChild(wrapper);
+}
+
+function applyLanguage(lang) {
+  const selected = LANGS.includes(lang) ? lang : 'es';
+  document.documentElement.lang = selected;
+  localStorage.setItem('siteLanguage', selected);
+
+  const titleKey = `title${selected.charAt(0).toUpperCase()}${selected.slice(1)}`;
+  const descriptionKey = `description${selected.charAt(0).toUpperCase()}${selected.slice(1)}`;
+  const pageTitle = document.body.dataset[titleKey];
+  if (pageTitle) {
+    document.title = pageTitle;
+  }
+
+  const pageDescription = document.body.dataset[descriptionKey];
+  if (pageDescription) {
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', pageDescription);
+    }
+  }
+
+  document.querySelectorAll('[data-es][data-en]').forEach((node) => {
+    node.textContent = node.dataset[selected];
+  });
+
+  document.querySelectorAll('.lang-button').forEach((button) => {
+    button.classList.toggle('is-active', button.dataset.lang === selected);
+  });
+}
+
+createLanguageSwitcher();
+const savedLanguage = localStorage.getItem('siteLanguage') || 'es';
+applyLanguage(savedLanguage);
