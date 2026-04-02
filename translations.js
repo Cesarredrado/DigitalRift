@@ -26,7 +26,7 @@ const translations = {
     'quienes.content': 'Equipo del IEGD-CSIC',
 
     // César
-    'quienes.cesar.bio1': 'Investigador predoctoral JAE-PRE en el Instituto de Economia, Geografia y Demografia (IEGD-CSIC) y estudiante de doctorado en Ciencia y Tecnologia Ambientales en la Universidad Autonoma de Barcelona (UAB). Su tesis, enmarcada dentro del proyecto DigitalRift, analiza las implicaciones ambientales y socioeconomicas de la digitalizacion de la agricultura en Espana y la Union Europea.',
+    'quienes.cesar.bio1': 'Investigador predoctoral JAE-PRE en el Instituto de Economía, Geografía y Demografía (IEGD-CSIC) y estudiante de doctorado en Ciencia y Tecnología Ambientales en la Universidad Autónoma de Barcelona (UAB). Su tesis, enmarcada dentro del proyecto DigitalRift, analiza las implicaciones ambientales y socioeconómicas de la digitalización de la agricultura en España y la Unión Europea.',
     'quienes.cesar.bio2': 'Como economista ecológico le interesan una amplia variedad de temas como la Diversidad biocultural, la Gobernanza del Agua, la Justicia Ambiental o la agricultura. En su trabajo emplea métodos mixtos e intenta incluir el arte como herramienta de investigación.',
     'quienes.cesar.bio3': 'También lidera el proyecto <a href="https://www.cascarrias.es" target="_blank" rel="noopener noreferrer">Cascarrias</a> para conservar y poner en valor la biodiversidad y el patrimonio inmaterial de la Ribera de Navarra.',
 

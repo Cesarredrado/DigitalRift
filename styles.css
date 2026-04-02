@@ -1,3 +1,27 @@
+@font-face {
+  font-family: 'Nunito';
+  src: url('cascarrias-migracion/font/Nunito-Regular.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Nunito';
+  src: url('cascarrias-migracion/font/Nunito-Bold.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Nunito';
+  src: url('cascarrias-migracion/font/Nunito-Italic.ttf') format('truetype');
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+
 /* ===== RESET & BASE ===== */
 *, *::before, *::after {
   margin: 0;
@@ -9,7 +33,7 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  font-family: 'Share Tech Mono', monospace;
+  font-family: 'Nunito', sans-serif;
   background-color: #dfe8d2;
   color: #d4ddc8;
   line-height: 1.7;

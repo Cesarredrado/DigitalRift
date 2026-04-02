@@ -40,7 +40,7 @@ function createAboutDropdown() {
   buildDropdown('que-es-cascarrias.html', [
     {
       suffix: 'mision-vision-valores.html',
-      es: 'Mision, Vision y Valores',
+      es: 'Misión, Visión y Valores',
       en: 'Mission, Vision and Values',
     },
     {
