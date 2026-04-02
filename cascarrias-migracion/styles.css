@@ -511,6 +511,10 @@ h3 {
   grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
 }
 
+.team-profiles {
+  grid-template-columns: 1fr;
+}
+
 .inner-card {
   padding: 1.1rem;
 }
@@ -603,6 +607,10 @@ h3 {
   max-width: none;
   color: #f8f3ee;
   margin: 0;
+}
+
+.legal-intro {
+  text-align: center;
 }
 
 .compact-footer {
