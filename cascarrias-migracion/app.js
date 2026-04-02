@@ -139,7 +139,7 @@ function buildDropdown(linkTarget, submenuItems) {
   toggle.className = 'nav-dropdown-toggle';
   toggle.setAttribute('aria-label', 'Abrir submenus');
   toggle.setAttribute('aria-expanded', 'false');
-  toggle.textContent = 'v';
+  toggle.textContent = '';
 
   const menu = document.createElement('div');
   menu.className = 'nav-dropdown-menu';
@@ -158,11 +158,10 @@ function buildDropdown(linkTarget, submenuItems) {
     toggle.setAttribute('aria-expanded', String(isOpen));
   });
 
+  nav.replaceChild(dropdown, triggerLink);
   dropdown.appendChild(triggerLink);
   dropdown.appendChild(toggle);
   dropdown.appendChild(menu);
-
-  nav.replaceChild(dropdown, triggerLink);
 }
 
 function applyLanguage(lang) {
