@@ -542,35 +542,90 @@ h3 {
   width: min(1080px, 92vw);
   margin: 0 auto 2.2rem;
   padding: 1rem 1.1rem;
-  border-top: 1px solid var(--border);
-  display: flex;
-  gap: 1rem;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  border: 1px solid rgba(53, 40, 30, 0.42);
+  border-radius: 1rem;
+  background: #5c4c3c;
+  color: #f8f3ee;
 }
 
-.site-footer h2 {
-  margin: 0;
+.footer-top {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.9rem;
+  align-items: stretch;
 }
 
-.site-footer p {
-  margin: 0.2rem 0;
+.footer-block {
+  border: 1px solid rgba(248, 243, 238, 0.22);
+  border-radius: 0.75rem;
+  padding: 0.7rem 0.8rem;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.footer-block h2 {
+  margin: 0 0 0.35rem;
+  font-size: 1.05rem;
+  color: #ffffff;
+}
+
+.footer-block p {
+  margin: 0.12rem 0;
+  color: #f2e7dc;
+}
+
+.footer-block-contact .social-icons {
+  margin-top: 0.45rem;
 }
 
 .site-footer a {
-  color: var(--accent-primary);
+  color: #ffffff;
+}
+
+.footer-block-logo {
+  display: grid;
+  place-items: center;
 }
 
 .footer-logo2 {
   display: block;
-  width: min(180px, 62vw);
+  width: min(180px, 95%);
   height: auto;
-  margin-top: 0.7rem;
+  margin: 0;
+}
+
+.footer-block-ue {
+  display: grid;
+  place-items: center;
+}
+
+.footer-ue-logo {
+  display: block;
+  width: min(220px, 92%);
+  height: auto;
+}
+
+.footer-social-icons .social-icon {
+  border-color: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+.footer-social-icons .social-icon:hover,
+.footer-social-icons .social-icon:focus-visible {
+  border-color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.footer-bottom {
+  margin-top: 0.85rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(248, 243, 238, 0.24);
 }
 
 .legal {
-  max-width: 44ch;
-  color: var(--ink-soft);
+  max-width: none;
+  color: #f8f3ee;
+  margin: 0;
 }
 
 .compact-footer {
@@ -671,6 +726,24 @@ h3 {
 
   .social-text {
     text-align: center;
+  }
+
+  .footer-top {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-block-contact .social-icons {
+    gap: 0.7rem;
+  }
+
+  .footer-social-icons .social-icon {
+    width: 2.55rem;
+    height: 2.55rem;
+  }
+
+  .footer-social-icons .social-icon svg {
+    width: 1.3rem;
+    height: 1.3rem;
   }
 
   .instagram-embeds {
