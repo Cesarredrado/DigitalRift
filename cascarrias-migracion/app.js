@@ -95,7 +95,6 @@ function ensureBaseNavigation() {
   const requiredLinks = [
     { target: 'index.html', es: 'Inicio', en: 'Home' },
     { target: 'que-es-cascarrias.html', es: '¿Qué es Cascarrias?', en: 'What is Cascarrias?' },
-    { target: 'noticias.html', es: 'Noticias', en: 'News' },
     { target: 'recursos.html', es: 'Recursos', en: 'Resources' },
     { target: 'contacto.html', es: 'Contacto', en: 'Contact' },
   ];
