@@ -508,10 +508,9 @@
 
             var targets = [];
 
-            // Título y descripción principal (no fuente)
-            var h3s = Array.prototype.slice.call(document.querySelectorAll('.galeria-item-caption h3'));
+            // Solo descripción (no título ni fuente)
             var ps = Array.prototype.slice.call(document.querySelectorAll('.galeria-item-caption > p:not(.galeria-item-source)'));
-            targets = targets.concat(h3s).concat(ps);
+            targets = targets.concat(ps);
 
             targets.forEach(function (el) {
                 if (!el || !el.textContent || !el.textContent.trim()) {
