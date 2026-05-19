@@ -353,7 +353,8 @@
             var visibles = 0;
 
             items.forEach(function (item) {
-                if (filtro === 'todo' || item.getAttribute('data-categoria') === filtro) {
+                var categorias = item.getAttribute('data-categoria').split(' ');
+                if (filtro === 'todo' || categorias.includes(filtro)) {
                     item.classList.remove('oculto');
                     visibles++;
                 } else {
@@ -365,11 +366,14 @@
         });
     });
 
-    // Lightbox â€” abrir
+    // Lightbox — abrir
     items.forEach(function (item) {
-        item.addEventListener('click', function () {
+        item.addEventListener('click', function (e) {
+            if (e.target.tagName === 'A' || e.target.closest('a')) {
+                return;
+            }
             var src = item.getAttribute('data-src');
-            var alt = item.querySelector('img').getAttribute('alt');
+            var alt = item.querySelector('h3').textContent;
             var fuente = item.getAttribute('data-fuente') || '';
             var url = item.getAttribute('data-url') || '';
             lightboxImg.setAttribute('src', src);
@@ -393,19 +397,19 @@
         });
     });
 
-    // Lightbox â€” cerrar con botÃ³n
+    // Lightbox — cerrar con botón
     lightboxClose.addEventListener('click', function () {
         cerrarLightbox();
     });
 
-    // Lightbox â€” cerrar con clic en fondo
+    // Lightbox — cerrar con clic en fondo
     lightbox.addEventListener('click', function (e) {
         if (e.target === lightbox) {
             cerrarLightbox();
         }
     });
 
-    // Lightbox â€” cerrar con Escape
+    // Lightbox — cerrar con Escape
     document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') {
             cerrarLightbox();
@@ -416,11 +420,12 @@
         lightbox.classList.remove('abierto');
         lightboxImg.setAttribute('src', '');
         lightboxFuente.textContent = '';
-        document.body.style.overflow = '';
+        document.body.style.overflow = 'auto';
     }
 })();
 </script>
 </body>
 </html>
+
 
 
