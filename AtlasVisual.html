@@ -225,6 +225,36 @@
             background: rgba(124, 179, 66, 0.1);
         }
 
+        /* Ver más (textos largos) */
+        .texto-clamp {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .texto-clamp.lineas-5 {
+            -webkit-line-clamp: 5;
+        }
+
+        .ver-mas-btn {
+            margin-top: 6px;
+            align-self: flex-start;
+            padding: 0;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #9fd06e;
+            text-decoration: underline;
+        }
+
+        .ver-mas-btn:hover {
+            color: #e6f0d9;
+        }
+
         /* Sin resultados */
         .sin-resultados {
             display: none;
@@ -424,6 +454,77 @@
             }, { once: true });
         });
 
+        function toNumberPx(value) {
+            var n = parseFloat(value);
+            return Number.isFinite(n) ? n : NaN;
+        }
+
+        function estimatedLineHeightPx(el) {
+            var cs = window.getComputedStyle(el);
+            var lh = toNumberPx(cs.lineHeight);
+            if (Number.isFinite(lh)) {
+                return lh;
+            }
+            var fs = toNumberPx(cs.fontSize);
+            if (Number.isFinite(fs)) {
+                return fs * 1.2;
+            }
+            return 16 * 1.2;
+        }
+
+        function setupVerMas() {
+            // Evita duplicar botones si initGaleria se ejecuta más de una vez
+            var existingBtns = Array.prototype.slice.call(document.querySelectorAll('.ver-mas-btn'));
+            existingBtns.forEach(function (b) { b.remove(); });
+
+            var targets = [];
+
+            // Título y descripción principal (no fuente)
+            var h3s = Array.prototype.slice.call(document.querySelectorAll('.galeria-item-caption h3'));
+            var ps = Array.prototype.slice.call(document.querySelectorAll('.galeria-item-caption > p:not(.galeria-item-source)'));
+            targets = targets.concat(h3s).concat(ps);
+
+            targets.forEach(function (el) {
+                if (!el || !el.textContent || !el.textContent.trim()) {
+                    return;
+                }
+
+                // Calcula cuántas líneas ocupa el texto sin clamp
+                el.classList.remove('texto-clamp', 'lineas-5');
+                var lineHeight = estimatedLineHeightPx(el);
+                var lines = Math.ceil(el.scrollHeight / lineHeight);
+
+                if (lines <= 5) {
+                    return;
+                }
+
+                el.classList.add('texto-clamp', 'lineas-5');
+
+                var btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'ver-mas-btn';
+                btn.textContent = 'Ver más';
+                btn.setAttribute('aria-expanded', 'false');
+
+                btn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    var expanded = btn.getAttribute('aria-expanded') === 'true';
+                    if (expanded) {
+                        el.classList.add('texto-clamp', 'lineas-5');
+                        btn.textContent = 'Ver más';
+                        btn.setAttribute('aria-expanded', 'false');
+                    } else {
+                        el.classList.remove('texto-clamp', 'lineas-5');
+                        btn.textContent = 'Ver menos';
+                        btn.setAttribute('aria-expanded', 'true');
+                    }
+                });
+
+                // Inserta el botón justo después del elemento
+                el.insertAdjacentElement('afterend', btn);
+            });
+        }
+
         function aplicarFiltro(filtro) {
             var visibles = 0;
 
@@ -491,6 +592,8 @@
                 document.body.style.overflow = 'hidden';
             });
         });
+
+        setupVerMas();
 
         var btnActivo = document.querySelector('.filtro-btn.activo');
         var filtroInicial = btnActivo ? btnActivo.getAttribute('data-filtro') : 'todo';
