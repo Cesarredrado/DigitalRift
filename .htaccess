@@ -8,6 +8,10 @@
   RewriteCond %{THE_REQUEST} \s/+(.+?)\.html[\s?] [NC]
   RewriteRule ^(.+?)\.html$ /$1 [R=301,L]
 
+  # 1.5) Canonicaliza: sin barra final (si no es un directorio real)
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(.+)/$ /$1 [R=301,L]
+
   # 2) No tocar archivos o carpetas reales
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d

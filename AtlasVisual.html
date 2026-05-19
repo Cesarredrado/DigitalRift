@@ -498,9 +498,13 @@
     }
 
     function loadFragments() {
+        var basePath = (window.location && window.location.pathname) ? window.location.pathname : '/';
+        basePath = basePath.replace(/\/$/, '');
+        var baseDir = basePath.substring(0, basePath.lastIndexOf('/') + 1);
+
         return Promise.all([
-            fetch('_atlas_filters.generated.html', { cache: 'no-cache' }).then(function (r) { return r.text(); }),
-            fetch('_atlas_items.generated.html', { cache: 'no-cache' }).then(function (r) { return r.text(); })
+            fetch(baseDir + '_atlas_filters.generated.html', { cache: 'no-cache' }).then(function (r) { return r.text(); }),
+            fetch(baseDir + '_atlas_items.generated.html', { cache: 'no-cache' }).then(function (r) { return r.text(); })
         ]).then(function (res) {
             if (filtrosContainer) {
                 filtrosContainer.innerHTML = res[0];
