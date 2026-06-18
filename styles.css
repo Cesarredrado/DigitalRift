@@ -251,6 +251,11 @@ section img {
   filter: brightness(0.95) contrast(1.05);
 }
 
+.macba-image {
+  max-width: 420px;
+  width: 100%;
+}
+
 /* ===== TEAM SECTION ===== */
 .team-intro {
   margin-bottom: 1.8rem;
