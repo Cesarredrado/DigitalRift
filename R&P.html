@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rural & Plural: Participatory Digital Cartographies</title>
+    <meta name="description" content="An interactive participatory map for adding images, audio, video and stories at key places around the world.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+    <style>
+        :root {
+            color-scheme: light;
+            --bg: #f4efe7;
+            --panel: #ffffff;
+            --panel-2: #f7f2ea;
+            --text: #223127;
+            --muted: #5b6c5b;
+            --accent: #4b6b3f;
+            --accent-2: #8f6b3d;
+            --border: #d8cdb9;
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--bg), #ebe0cf);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .page-shell {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 32px 20px 48px;
+        }
+
+        .hero {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            box-shadow: 0 16px 40px rgba(13, 29, 15, 0.08);
+            padding: 28px;
+        }
+
+        .hero h1 {
+            margin: 0 0 10px;
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            color: var(--accent);
+        }
+
+        .hero p {
+            margin: 0 0 12px;
+            color: var(--muted);
+            max-width: 850px;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            margin-bottom: 8px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: var(--panel-2);
+            color: var(--accent-2);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 1.5fr 0.9fr;
+            gap: 20px;
+            margin-top: 24px;
+            align-items: start;
+        }
+
+        .map-card,
+        .side-panel {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 16px;
+            box-shadow: 0 10px 30px rgba(13, 29, 15, 0.06);
+        }
+
+        #map {
+            height: 520px;
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .map-note {
+            margin: 10px 0 0;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .map-hint {
+            margin-top: 8px;
+            padding: 8px 10px;
+            border-radius: 10px;
+            background: #f7f2ea;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .form h2,
+        .list-section h2 {
+            margin: 0 0 12px;
+            font-size: 1.05rem;
+            color: var(--accent);
+        }
+
+        .form label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+
+        .form input,
+        .form textarea,
+        .form select,
+        .form button {
+            width: 100%;
+            margin-top: 6px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            font: inherit;
+            color: var(--text);
+            background: #fcfaf6;
+        }
+
+        .form button {
+            cursor: pointer;
+            background: var(--accent);
+            color: white;
+            border: none;
+            font-weight: 600;
+            transition: transform 0.2s ease;
+        }
+
+        .form button:hover { transform: translateY(-1px); }
+
+        .coords {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .entry {
+            margin-top: 12px;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--panel-2);
+        }
+
+        .entry h3 {
+            margin: 0 0 6px;
+            font-size: 0.98rem;
+            color: var(--accent);
+        }
+
+        .entry p { margin: 4px 0; color: var(--muted); font-size: 0.92rem; }
+
+        .tag {
+            display: inline-block;
+            margin-bottom: 8px;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--accent-2);
+            font-weight: 700;
+        }
+
+        .preview {
+            width: 100%;
+            max-height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-top: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .empty-state {
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .info-box {
+            margin-top: 18px;
+            padding: 14px 16px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: #f7f2ea;
+        }
+
+        .info-box h2 {
+            margin: 0 0 8px;
+            font-size: 1rem;
+            color: var(--accent);
+        }
+
+        .info-box ol,
+        .info-box ul {
+            margin: 0;
+            padding-left: 18px;
+            color: var(--muted);
+        }
+
+        .popup-card h3 { margin: 0 0 6px; color: var(--accent); }
+        .popup-card p { margin: 4px 0; }
+
+        .custom-marker span {
+            display: block;
+            width: 16px;
+            height: 16px;
+            border-radius: 999px;
+            border: 2px solid white;
+            box-shadow: 0 0 6px rgba(0,0,0,0.25);
+        }
+
+        @media (max-width: 900px) {
+            .layout { grid-template-columns: 1fr; }
+            #map { height: 420px; }
+            .coords { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-shell">
+        <section class="hero">
+            <span class="eyebrow">R&amp;P</span>
+            <h1>Rural & Plural: Participatory Digital Cartographies</h1>
+            <p>
+                This interactive map allows participants to add points around the world with images, audio, video and contextual information.
+                Click anywhere on the map to place a new contribution and share a memory, evidence or story.
+            </p>
+            <p>
+                Entries are stored locally in the browser, so the map can be expanded gradually and later exported or shared.
+            </p>
+
+            <div class="layout">
+                <div class="map-card">
+                    <div id="map"></div>
+                    <p class="map-note">Click on the map to set the location of your new contribution.</p>
+                    <div class="map-hint" id="map-status">No location selected yet. Click anywhere on the map to place a pin.</div>
+                </div>
+
+                <aside class="side-panel">
+                    <form id="contribution-form" class="form">
+                        <h2>Add a new point</h2>
+                        <label>
+                            Title
+                            <input type="text" id="title" name="title" required placeholder="Example: River memory">
+                        </label>
+                        <label>
+                            Description
+                            <textarea id="description" name="description" rows="3" placeholder="Describe the place, memory or evidence"></textarea>
+                        </label>
+                        <label>
+                            Category
+                            <select id="category" name="category">
+                                <option value="evidence">Evidence</option>
+                                <option value="image">Image</option>
+                                <option value="audio">Audio</option>
+                                <option value="video">Video</option>
+                                <option value="story">Story</option>
+                            </select>
+                        </label>
+                        <div class="coords">
+                            <label>
+                                Latitude
+                                <input type="number" id="lat" name="lat" step="0.000001" required>
+                            </label>
+                            <label>
+                                Longitude
+                                <input type="number" id="lng" name="lng" step="0.000001" required>
+                            </label>
+                        </div>
+                        <label>
+                            Multimedia file
+                            <input type="file" id="mediaFile" name="mediaFile" accept="image/*,audio/*,video/*">
+                        </label>
+                        <label>
+                            Or paste an external link
+                            <input type="url" id="mediaUrl" name="mediaUrl" placeholder="https://...">
+                        </label>
+                        <label>
+                            Author or source
+                            <input type="text" id="author" name="author" placeholder="Name or institution">
+                        </label>
+                        <button type="submit">Save point</button>
+                    </form>
+
+                    <div class="list-section" style="margin-top: 16px;">
+                        <h2>Registered points</h2>
+                        <div id="contributions-list"></div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    <script>
+        const STORAGE_KEY = 'r-and-p-participatory-map';
+
+        const initialPoints = [
+            {
+                id: crypto.randomUUID(),
+                title: 'Shared route memory',
+                description: 'An initial story that connects different territories through a common journey.',
+                category: 'story',
+                lat: 40.4168,
+                lng: -3.7038,
+                author: 'R&P team',
+                mediaType: 'text',
+                mediaValue: ''
+            },
+            {
+                id: crypto.randomUUID(),
+                title: 'Visual evidence',
+                description: 'An image that helps frame a conversation about landscape and heritage.',
+                category: 'image',
+                lat: 19.4326,
+                lng: -99.1332,
+                author: 'Open collaboration',
+                mediaType: 'image',
+                mediaValue: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80'
+            },
+            {
+                id: crypto.randomUUID(),
+                title: 'Field sound',
+                description: 'An audio fragment accompanying the experience of a place in transition.',
+                category: 'audio',
+                lat: -13.1631,
+                lng: -72.5450,
+                author: 'Local collective',
+                mediaType: 'audio',
+                mediaValue: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'
+            }
+        ];
+
+        const form = document.getElementById('contribution-form');
+        const titleInput = document.getElementById('title');
+        const descriptionInput = document.getElementById('description');
+        const categoryInput = document.getElementById('category');
+        const latInput = document.getElementById('lat');
+        const lngInput = document.getElementById('lng');
+        const authorInput = document.getElementById('author');
+        const mediaFileInput = document.getElementById('mediaFile');
+        const mediaUrlInput = document.getElementById('mediaUrl');
+        const listContainer = document.getElementById('contributions-list');
+        const mapStatus = document.getElementById('map-status');
+
+        let points = loadPoints();
+
+        const map = L.map('map', {
+            zoomControl: true,
+            attributionControl: true
+        }).setView([20, 0], 2);
+
+        const baseMaps = {
+            'Roadmap': L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+                maxZoom: 20,
+                attribution: '&copy; Google Maps'
+            }),
+            'Satellite': L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+                maxZoom: 20,
+                attribution: '&copy; Google Maps'
+            }),
+            'Hybrid': L.tileLayer('https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
+                maxZoom: 20,
+                attribution: '&copy; Google Maps'
+            })
+        };
+
+        baseMaps['Roadmap'].addTo(map);
+        L.control.layers(baseMaps).addTo(map);
+
+        const markersLayer = L.layerGroup().addTo(map);
+        let selectedMarker = null;
+
+        map.on('click', (event) => {
+            const { lat, lng } = event.latlng;
+            latInput.value = lat.toFixed(5);
+            lngInput.value = lng.toFixed(5);
+
+            if (selectedMarker) {
+                markersLayer.removeLayer(selectedMarker);
+            }
+
+            selectedMarker = L.marker([lat, lng], {
+                draggable: true,
+                icon: getMarkerIcon('story')
+            }).addTo(markersLayer);
+
+            selectedMarker.on('dragend', () => {
+                const position = selectedMarker.getLatLng();
+                latInput.value = position.lat.toFixed(5);
+                lngInput.value = position.lng.toFixed(5);
+                mapStatus.textContent = `Selected location: ${position.lat.toFixed(3)}, ${position.lng.toFixed(3)}`;
+            });
+
+            mapStatus.textContent = `Selected location: ${lat.toFixed(3)}, ${lng.toFixed(3)}`;
+            titleInput.focus();
+        });
+
+        renderPoints();
+        renderList();
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const media = await readMedia();
+            const newPoint = {
+                id: crypto.randomUUID(),
+                title: titleInput.value.trim(),
+                description: descriptionInput.value.trim(),
+                category: categoryInput.value,
+                lat: parseFloat(latInput.value),
+                lng: parseFloat(lngInput.value),
+                author: authorInput.value.trim(),
+                mediaType: media.type,
+                mediaValue: media.value
+            };
+
+            if (!newPoint.title || Number.isNaN(newPoint.lat) || Number.isNaN(newPoint.lng)) {
+                alert('Please complete the title and location before saving the point.');
+                return;
+            }
+
+            points.push(newPoint);
+            savePoints();
+            renderPoints();
+            renderList();
+            form.reset();
+            latInput.value = '';
+            lngInput.value = '';
+            if (selectedMarker) {
+                markersLayer.removeLayer(selectedMarker);
+                selectedMarker = null;
+            }
+            mapStatus.textContent = 'No location selected yet. Click anywhere on the map to place a pin.';
+            titleInput.focus();
+        });
+
+        function loadPoints() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (!saved) {
+                return initialPoints;
+            }
+
+            try {
+                const parsed = JSON.parse(saved);
+                return Array.isArray(parsed) && parsed.length ? parsed : initialPoints;
+            } catch (error) {
+                return initialPoints;
+            }
+        }
+
+        function savePoints() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(points));
+        }
+
+        function renderPoints() {
+            markersLayer.clearLayers();
+
+            points.forEach((point) => {
+                const marker = L.marker([point.lat, point.lng], {
+                    icon: getMarkerIcon(point.category)
+                }).addTo(markersLayer);
+
+                marker.bindPopup(buildPopupContent(point));
+            });
+        }
+
+        function renderList() {
+            if (!points.length) {
+                listContainer.innerHTML = '<p class="empty-state">No points have been added yet.</p>';
+                return;
+            }
+
+            listContainer.innerHTML = points.map((point) => `
+                <article class="entry">
+                    <span class="tag">${escapeHtml(point.category)}</span>
+                    <h3>${escapeHtml(point.title)}</h3>
+                    <p>${escapeHtml(point.description || 'No description')}</p>
+                    <p>${escapeHtml(point.author || 'Open participation')} · ${point.lat.toFixed(3)}, ${point.lng.toFixed(3)}</p>
+                    ${renderPreview(point)}
+                </article>
+            `).join('');
+        }
+
+        function renderPreview(point) {
+            if (!point.mediaValue) {
+                return '';
+            }
+
+            if (point.mediaType === 'image') {
+                return `<img class="preview" src="${escapeAttr(point.mediaValue)}" alt="${escapeAttr(point.title)}">`;
+            }
+
+            if (point.mediaType === 'audio') {
+                return `<audio controls class="preview" src="${escapeAttr(point.mediaValue)}"></audio>`;
+            }
+
+            if (point.mediaType === 'video') {
+                return `<video controls class="preview" src="${escapeAttr(point.mediaValue)}"></video>`;
+            }
+
+            return '';
+        }
+
+        function buildPopupContent(point) {
+            const media = renderPopupMedia(point);
+            return `
+                <div class="popup-card">
+                    <h3>${escapeHtml(point.title)}</h3>
+                    <p>${escapeHtml(point.description || 'No description')}</p>
+                    ${point.author ? `<p>${escapeHtml(point.author)}</p>` : ''}
+                    ${media}
+                </div>
+            `;
+        }
+
+        function renderPopupMedia(point) {
+            if (!point.mediaValue) {
+                return '';
+            }
+
+            if (point.mediaType === 'image') {
+                return `<img class="preview" src="${escapeAttr(point.mediaValue)}" alt="${escapeAttr(point.title)}">`;
+            }
+
+            if (point.mediaType === 'audio') {
+                return `<audio controls src="${escapeAttr(point.mediaValue)}"></audio>`;
+            }
+
+            if (point.mediaType === 'video') {
+                return `<video controls src="${escapeAttr(point.mediaValue)}"></video>`;
+            }
+
+            return '';
+        }
+
+        function getMarkerIcon(category) {
+            const colors = {
+                evidence: '#4b6b3f',
+                image: '#8f6b3d',
+                audio: '#6f8c50',
+                video: '#4d6b34',
+                story: '#7b8a6e'
+            };
+
+            return L.divIcon({
+                className: 'custom-marker',
+                html: `<span style="background:${colors[category] || '#4b6b3f'}"></span>`,
+                iconSize: [16, 16],
+                iconAnchor: [8, 8]
+            });
+        }
+
+        async function readMedia() {
+            const file = mediaFileInput.files[0];
+            const externalUrl = mediaUrlInput.value.trim();
+
+            if (file) {
+                const dataUrl = await fileToDataUrl(file);
+                return {
+                    type: file.type.split('/')[0] || 'image',
+                    value: dataUrl
+                };
+            }
+
+            if (externalUrl) {
+                const type = detectMediaType(externalUrl);
+                return {
+                    type,
+                    value: externalUrl
+                };
+            }
+
+            return { type: 'text', value: '' };
+        }
+
+        function detectMediaType(url) {
+            const lower = url.toLowerCase();
+            if (lower.match(/\.(jpg|jpeg|png|gif|webp|svg)(\?|$)/)) return 'image';
+            if (lower.match(/\.(mp3|wav|ogg|m4a)(\?|$)/)) return 'audio';
+            if (lower.match(/\.(mp4|webm|ogg)(\?|$)/)) return 'video';
+            return 'text';
+        }
+
+        function fileToDataUrl(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function escapeHtml(value) {
+            return String(value)
+                .replaceAll('&', '&amp;')
+                .replaceAll('<', '&lt;')
+                .replaceAll('>', '&gt;')
+                .replaceAll('"', '&quot;')
+                .replaceAll("'", '&#39;');
+        }
+
+        function escapeAttr(value) {
+            return escapeHtml(value).replaceAll('`', '&#96;');
+        }
+    </script>
+</body>
+</html>

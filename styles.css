@@ -256,6 +256,173 @@ section img {
   width: 100%;
 }
 
+.rnp-page .hero {
+  max-width: 1500px;
+}
+
+.rnp-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.rnp-map-card,
+.rnp-panel {
+  background: rgba(20, 28, 16, 0.8);
+  border: 1px solid rgba(124, 179, 66, 0.2);
+  border-radius: 6px;
+  padding: 1rem;
+}
+
+#map {
+  height: 480px;
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid rgba(124, 179, 66, 0.2);
+}
+
+.map-note {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  color: #b6c3a2;
+}
+
+.rnp-form,
+.rnp-list-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.rnp-form label,
+.rnp-form input,
+.rnp-form textarea,
+.rnp-form select,
+.rnp-form button {
+  width: 100%;
+}
+
+.rnp-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  color: #d4ddc7;
+  font-size: 0.9rem;
+}
+
+.rnp-form input,
+.rnp-form textarea,
+.rnp-form select {
+  padding: 0.65rem 0.75rem;
+  border: 1px solid rgba(124, 179, 66, 0.25);
+  border-radius: 4px;
+  background: rgba(255,255,255,0.04);
+  color: #f4f8eb;
+  font-family: inherit;
+}
+
+.rnp-form button {
+  padding: 0.8rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background: linear-gradient(90deg, #7fb34a, #4d6e2c);
+  color: #f7fdf0;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.rnp-coords {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.7rem;
+}
+
+.rnp-list-section {
+  margin-top: 1rem;
+}
+
+.rnp-item {
+  padding: 0.8rem;
+  border: 1px solid rgba(124, 179, 66, 0.16);
+  border-radius: 6px;
+  background: rgba(255,255,255,0.03);
+}
+
+.rnp-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.rnp-item h4 {
+  color: #88bd54;
+  font-size: 0.95rem;
+}
+
+.category-pill {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #d4ddc7;
+  border: 1px solid rgba(124, 179, 66, 0.2);
+  padding: 0.2rem 0.45rem;
+  border-radius: 999px;
+}
+
+.rnp-meta {
+  font-size: 0.8rem;
+  color: #b6c3a2;
+  margin-top: 0.35rem;
+}
+
+.rnp-preview,
+.rnp-preview-media,
+.popup-media {
+  display: block;
+  width: 100%;
+  max-height: 220px;
+  object-fit: cover;
+  margin-top: 0.6rem;
+  border-radius: 4px;
+  border: 1px solid rgba(124, 179, 66, 0.2);
+}
+
+.popup-card h4 {
+  color: #88bd54;
+  margin-bottom: 0.35rem;
+}
+
+.popup-author {
+  font-size: 0.85rem;
+  color: #b6c3a2;
+  margin-top: 0.4rem;
+}
+
+.custom-marker span {
+  display: block;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  border: 2px solid rgba(255,255,255,0.8);
+  box-shadow: 0 0 6px rgba(0,0,0,0.26);
+}
+
+.empty-state {
+  color: #b6c3a2;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 980px) {
+  .rnp-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ===== TEAM SECTION ===== */
 .team-intro {
   margin-bottom: 1.8rem;
