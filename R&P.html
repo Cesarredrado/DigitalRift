@@ -421,13 +421,17 @@
             event.preventDefault();
 
             const media = await readMedia();
+            const fallbackCenter = map.getCenter();
+            const latValue = latInput.value.trim() ? parseFloat(latInput.value) : fallbackCenter.lat;
+            const lngValue = lngInput.value.trim() ? parseFloat(lngInput.value) : fallbackCenter.lng;
+
             const newPoint = {
                 id: crypto.randomUUID(),
                 title: titleInput.value.trim(),
                 description: descriptionInput.value.trim(),
                 category: categoryInput.value,
-                lat: parseFloat(latInput.value),
-                lng: parseFloat(lngInput.value),
+                lat: latValue,
+                lng: lngValue,
                 author: authorInput.value.trim(),
                 mediaType: media.type,
                 mediaValue: media.value
@@ -449,7 +453,7 @@
                 markersLayer.removeLayer(selectedMarker);
                 selectedMarker = null;
             }
-            mapStatus.textContent = 'No location selected yet. Click anywhere on the map to place a pin.';
+            mapStatus.textContent = `Point saved at ${newPoint.lat.toFixed(3)}, ${newPoint.lng.toFixed(3)}.`;
             titleInput.focus();
         });
 
