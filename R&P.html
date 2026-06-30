@@ -312,7 +312,10 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
     <script>
         const STORAGE_KEY = 'r-and-p-participatory-map';
-        const API_URL = 'http://127.0.0.1:8001/points';
+        const SUPABASE_URL = 'https://olkvzgtxzecejvxlxtbr.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9sa3Z6Z3R4emVjamV2eGx4dGJyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI3Nzc5MzUsImV4cCI6MjA5ODM1MzkzNX0.T3V-_--Pi9s9b7Dhlor87G7gSpZoquTL2753bwbcWJs';
+        const TABLE_NAME = 'points';
+        const API_URL = `${SUPABASE_URL}/rest/v1/${TABLE_NAME}`;
 
         const initialPoints = [];
 
@@ -425,7 +428,12 @@
 
         async function loadPointsFromServer() {
             try {
-                const response = await fetch(API_URL);
+                const response = await fetch(API_URL + '?select=*', {
+                    headers: {
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                    }
+                });
                 if (!response.ok) {
                     throw new Error('Unable to load points');
                 }
@@ -443,15 +451,20 @@
         async function savePointToServer(point) {
             const response = await fetch(API_URL, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(point)
+                headers: {
+                    'Content-Type': 'application/json',
+                    'apikey': SUPABASE_ANON_KEY,
+                    'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                },
+                body: JSON.stringify([point])
             });
 
             if (!response.ok) {
                 throw new Error('Unable to save point');
             }
 
-            return await response.json();
+            const data = await response.json();
+            return Array.isArray(data) ? data[0] : point;
         }
 
         function renderPoints() {
