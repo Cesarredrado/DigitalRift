@@ -312,9 +312,14 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
     <script>
         const STORAGE_KEY = 'r-and-p-participatory-map';
-        const SUPABASE_URL = 'https://olkvzgtxzecejvxlxtbr.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9sa3Z6Z3R4emVjamV2eGx4dGJyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI3Nzc5MzUsImV4cCI6MjA5ODM1MzkzNX0.T3V-_--Pi9s9b7Dhlor87G7gSpZoquTL2753bwbcWJs';
+        const SUPABASE_URL = 'https://olkvzgtxzecjevxlxtbr.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_VsOs852tqG484znrcays3w_-piYuk_j';
         const TABLE_NAME = 'points';
+        const SUPABASE_HEADERS = {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Content-Type': 'application/json'
+        };
         const API_URL = `${SUPABASE_URL}/rest/v1/${TABLE_NAME}`;
 
         const initialPoints = [];
@@ -432,13 +437,11 @@
         async function loadPointsFromServer() {
             try {
                 const response = await fetch(API_URL + '?select=*', {
-                    headers: {
-                        'apikey': SUPABASE_ANON_KEY,
-                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-                    }
+                    headers: SUPABASE_HEADERS
                 });
                 if (!response.ok) {
-                    throw new Error('Unable to load points');
+                    const text = await response.text();
+                    throw new Error(text || 'Unable to load points');
                 }
                 const data = await response.json();
                 const remotePoints = Array.isArray(data) ? data : [];
@@ -460,28 +463,62 @@
         }
 
         async function savePointToServer(point) {
-            try {
-                const response = await fetch(API_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'apikey': SUPABASE_ANON_KEY,
-                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-                    },
-                    body: JSON.stringify([point])
-                });
+            const payloads = [
+                buildPointPayload(point, false),
+                buildPointPayload(point, true)
+            ];
 
-                if (!response.ok) {
-                    throw new Error('Unable to save point');
+            for (const payload of payloads) {
+                try {
+                    const response = await fetch(API_URL, {
+                        method: 'POST',
+                        headers: SUPABASE_HEADERS,
+                        body: JSON.stringify([payload])
+                    });
+
+                    if (!response.ok) {
+                        const text = await response.text();
+                        throw new Error(text || `Unable to save point (${response.status})`);
+                    }
+
+                    const data = await response.json();
+                    const savedPoint = Array.isArray(data) ? data[0] : point;
+                    return { ...savedPoint, remoteSaved: true };
+                } catch (error) {
+                    const message = String(error.message || error);
+                    if (!message.includes('column') && !message.includes('permission') && !message.includes('policy') && !message.includes('403') && !message.includes('401')) {
+                        savePointLocally(point);
+                        return { ...point, remoteSaved: false };
+                    }
+
+                    if (payload !== payloads[payloads.length - 1]) {
+                        continue;
+                    }
+
+                    console.warn('Supabase save failed:', message);
+                    savePointLocally(point);
+                    return { ...point, remoteSaved: false, errorMessage: message };
                 }
-
-                const data = await response.json();
-                const savedPoint = Array.isArray(data) ? data[0] : point;
-                return { ...savedPoint, remoteSaved: true };
-            } catch (error) {
-                savePointLocally(point);
-                return { ...point, remoteSaved: false };
             }
+
+            savePointLocally(point);
+            return { ...point, remoteSaved: false };
+        }
+
+        function buildPointPayload(point, useSnakeCase) {
+            const mediaField = useSnakeCase ? 'media_value' : 'mediaValue';
+            const mediaTypeField = useSnakeCase ? 'media_type' : 'mediaType';
+            return {
+                id: point.id,
+                title: point.title,
+                description: point.description,
+                category: point.category,
+                lat: point.lat,
+                lng: point.lng,
+                author: point.author,
+                [mediaTypeField]: point.mediaType || point.media_type,
+                [mediaField]: point.mediaValue || point.media_value
+            };
         }
 
         function loadPointsFromStorage() {
@@ -542,20 +579,23 @@
         }
 
         function renderPreview(point) {
-            if (!point.mediaValue) {
+            const mediaValue = getPointValue(point, 'mediaValue', 'media_value');
+            const mediaType = getPointValue(point, 'mediaType', 'media_type');
+
+            if (!mediaValue) {
                 return '';
             }
 
-            if (point.mediaType === 'image') {
-                return `<img class="preview" src="${escapeAttr(point.mediaValue)}" alt="${escapeAttr(point.title)}">`;
+            if (mediaType === 'image') {
+                return `<img class="preview" src="${escapeAttr(mediaValue)}" alt="${escapeAttr(point.title)}">`;
             }
 
-            if (point.mediaType === 'audio') {
-                return `<audio controls class="preview" src="${escapeAttr(point.mediaValue)}"></audio>`;
+            if (mediaType === 'audio') {
+                return `<audio controls class="preview" src="${escapeAttr(mediaValue)}"></audio>`;
             }
 
-            if (point.mediaType === 'video') {
-                return `<video controls class="preview" src="${escapeAttr(point.mediaValue)}"></video>`;
+            if (mediaType === 'video') {
+                return `<video controls class="preview" src="${escapeAttr(mediaValue)}"></video>`;
             }
 
             return '';
@@ -574,23 +614,30 @@
         }
 
         function renderPopupMedia(point) {
-            if (!point.mediaValue) {
+            const mediaValue = getPointValue(point, 'mediaValue', 'media_value');
+            const mediaType = getPointValue(point, 'mediaType', 'media_type');
+
+            if (!mediaValue) {
                 return '';
             }
 
-            if (point.mediaType === 'image') {
-                return `<img class="preview" src="${escapeAttr(point.mediaValue)}" alt="${escapeAttr(point.title)}">`;
+            if (mediaType === 'image') {
+                return `<img class="preview" src="${escapeAttr(mediaValue)}" alt="${escapeAttr(point.title)}">`;
             }
 
-            if (point.mediaType === 'audio') {
-                return `<audio controls src="${escapeAttr(point.mediaValue)}"></audio>`;
+            if (mediaType === 'audio') {
+                return `<audio controls src="${escapeAttr(mediaValue)}"></audio>`;
             }
 
-            if (point.mediaType === 'video') {
-                return `<video controls src="${escapeAttr(point.mediaValue)}"></video>`;
+            if (mediaType === 'video') {
+                return `<video controls src="${escapeAttr(mediaValue)}"></video>`;
             }
 
             return '';
+        }
+
+        function getPointValue(point, camelCaseKey, snakeCaseKey) {
+            return point[camelCaseKey] ?? point[snakeCaseKey] ?? '';
         }
 
         function getMarkerIcon(category) {
