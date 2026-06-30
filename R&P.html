@@ -318,7 +318,8 @@
         const SUPABASE_HEADERS = {
             'apikey': SUPABASE_ANON_KEY,
             'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Prefer': 'return=representation'
         };
         const API_URL = `${SUPABASE_URL}/rest/v1/${TABLE_NAME}`;
 
@@ -430,7 +431,9 @@
             }
             mapStatus.textContent = savedPoint.remoteSaved
                 ? `Point saved and synced to the shared map.`
-                : `Point saved locally because the shared connection is unavailable.`;
+                : savedPoint.errorMessage
+                    ? `Saved locally. Supabase error: ${savedPoint.errorMessage}`
+                    : `Point saved locally because the shared connection is unavailable.`;
             titleInput.focus();
         });
 
@@ -452,6 +455,13 @@
                     renderList();
                     return;
                 }
+
+                points = [];
+                savePointsToStorage([]);
+                renderPoints();
+                renderList();
+                mapStatus.textContent = 'No shared points yet. Add the first one.';
+                return;
             } catch (error) {
                 console.warn('Remote storage unavailable, using local storage instead.', error);
             }
@@ -483,6 +493,7 @@
 
                     const data = await response.json();
                     const savedPoint = Array.isArray(data) ? data[0] : point;
+                    console.log('Supabase save succeeded', response.status, data);
                     return { ...savedPoint, remoteSaved: true };
                 } catch (error) {
                     const message = String(error.message || error);
@@ -495,7 +506,7 @@
                         continue;
                     }
 
-                    console.warn('Supabase save failed:', message);
+                    console.error('Supabase save failed:', { payload, message });
                     savePointLocally(point);
                     return { ...point, remoteSaved: false, errorMessage: message };
                 }
