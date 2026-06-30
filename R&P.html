@@ -313,41 +313,7 @@
     <script>
         const STORAGE_KEY = 'r-and-p-participatory-map';
 
-        const initialPoints = [
-            {
-                id: crypto.randomUUID(),
-                title: 'Shared route memory',
-                description: 'An initial story that connects different territories through a common journey.',
-                category: 'story',
-                lat: 40.4168,
-                lng: -3.7038,
-                author: 'R&P team',
-                mediaType: 'text',
-                mediaValue: ''
-            },
-            {
-                id: crypto.randomUUID(),
-                title: 'Visual evidence',
-                description: 'An image that helps frame a conversation about landscape and heritage.',
-                category: 'image',
-                lat: 19.4326,
-                lng: -99.1332,
-                author: 'Open collaboration',
-                mediaType: 'image',
-                mediaValue: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80'
-            },
-            {
-                id: crypto.randomUUID(),
-                title: 'Field sound',
-                description: 'An audio fragment accompanying the experience of a place in transition.',
-                category: 'audio',
-                lat: -13.1631,
-                lng: -72.5450,
-                author: 'Local collective',
-                mediaType: 'audio',
-                mediaValue: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'
-            }
-        ];
+        const initialPoints = [];
 
         const form = document.getElementById('contribution-form');
         const titleInput = document.getElementById('title');
