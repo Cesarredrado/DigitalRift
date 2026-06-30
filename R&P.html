@@ -312,6 +312,7 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
     <script>
         const STORAGE_KEY = 'r-and-p-participatory-map';
+        const API_URL = 'http://127.0.0.1:8001/points';
 
         const initialPoints = [];
 
@@ -327,7 +328,7 @@
         const listContainer = document.getElementById('contributions-list');
         const mapStatus = document.getElementById('map-status');
 
-        let points = loadPoints();
+        let points = [];
 
         const map = L.map('map', {
             zoomControl: true,
@@ -380,8 +381,7 @@
             titleInput.focus();
         });
 
-        renderPoints();
-        renderList();
+        loadPointsFromServer();
 
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
@@ -408,8 +408,8 @@
                 return;
             }
 
-            points.push(newPoint);
-            savePoints();
+            const savedPoint = await savePointToServer(newPoint);
+            points.push(savedPoint);
             renderPoints();
             renderList();
             form.reset();
@@ -423,22 +423,35 @@
             titleInput.focus();
         });
 
-        function loadPoints() {
-            const saved = localStorage.getItem(STORAGE_KEY);
-            if (!saved) {
-                return initialPoints;
-            }
-
+        async function loadPointsFromServer() {
             try {
-                const parsed = JSON.parse(saved);
-                return Array.isArray(parsed) && parsed.length ? parsed : initialPoints;
+                const response = await fetch(API_URL);
+                if (!response.ok) {
+                    throw new Error('Unable to load points');
+                }
+                const data = await response.json();
+                points = Array.isArray(data) ? data : initialPoints;
+                renderPoints();
+                renderList();
             } catch (error) {
-                return initialPoints;
+                points = initialPoints;
+                renderPoints();
+                renderList();
             }
         }
 
-        function savePoints() {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(points));
+        async function savePointToServer(point) {
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(point)
+            });
+
+            if (!response.ok) {
+                throw new Error('Unable to save point');
+            }
+
+            return await response.json();
         }
 
         function renderPoints() {
