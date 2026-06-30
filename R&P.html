@@ -244,7 +244,7 @@
                 Click anywhere on the map to place a new contribution and share a memory, evidence or story.
             </p>
             <p>
-                Entries are stored locally in the browser, so the map can be expanded gradually and later exported or shared.
+                Entries are saved in this browser first, and they can also sync to the shared map when the connection is available.
             </p>
 
             <div class="layout">
@@ -413,6 +413,7 @@
 
             const savedPoint = await savePointToServer(newPoint);
             points.push(savedPoint);
+            savePointsToStorage(points);
             renderPoints();
             renderList();
             form.reset();
@@ -422,7 +423,9 @@
                 markersLayer.removeLayer(selectedMarker);
                 selectedMarker = null;
             }
-            mapStatus.textContent = `Point saved at ${newPoint.lat.toFixed(3)}, ${newPoint.lng.toFixed(3)}.`;
+            mapStatus.textContent = savedPoint.remoteSaved
+                ? `Point saved and synced to the shared map.`
+                : `Point saved locally because the shared connection is unavailable.`;
             titleInput.focus();
         });
 
@@ -438,33 +441,75 @@
                     throw new Error('Unable to load points');
                 }
                 const data = await response.json();
-                points = Array.isArray(data) ? data : initialPoints;
-                renderPoints();
-                renderList();
+                const remotePoints = Array.isArray(data) ? data : [];
+                if (remotePoints.length) {
+                    points = remotePoints;
+                    savePointsToStorage(points);
+                    renderPoints();
+                    renderList();
+                    return;
+                }
             } catch (error) {
-                points = initialPoints;
-                renderPoints();
-                renderList();
+                console.warn('Remote storage unavailable, using local storage instead.', error);
             }
+
+            points = loadPointsFromStorage();
+            renderPoints();
+            renderList();
+            mapStatus.textContent = 'Using local storage for this browser because the shared connection is temporarily unavailable.';
         }
 
         async function savePointToServer(point) {
-            const response = await fetch(API_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'apikey': SUPABASE_ANON_KEY,
-                    'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-                },
-                body: JSON.stringify([point])
-            });
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                    },
+                    body: JSON.stringify([point])
+                });
 
-            if (!response.ok) {
-                throw new Error('Unable to save point');
+                if (!response.ok) {
+                    throw new Error('Unable to save point');
+                }
+
+                const data = await response.json();
+                const savedPoint = Array.isArray(data) ? data[0] : point;
+                return { ...savedPoint, remoteSaved: true };
+            } catch (error) {
+                savePointLocally(point);
+                return { ...point, remoteSaved: false };
             }
+        }
 
-            const data = await response.json();
-            return Array.isArray(data) ? data[0] : point;
+        function loadPointsFromStorage() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (!raw) {
+                    return [];
+                }
+                const parsed = JSON.parse(raw);
+                return Array.isArray(parsed) ? parsed : [];
+            } catch (error) {
+                console.warn('Could not read local points.', error);
+                return [];
+            }
+        }
+
+        function savePointsToStorage(items) {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+            } catch (error) {
+                console.warn('Could not save points locally.', error);
+            }
+        }
+
+        function savePointLocally(point) {
+            const existing = loadPointsFromStorage();
+            existing.push(point);
+            savePointsToStorage(existing);
         }
 
         function renderPoints() {
