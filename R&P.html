@@ -240,11 +240,10 @@
             <span class="eyebrow">R&amp;P</span>
             <h1>Rural & Plural: Participatory Digital Cartographies</h1>
             <p>
-                This interactive map allows participants to add points around the world with images, audio, video and contextual information.
-                Click anywhere on the map to place a new contribution and share a memory, evidence or story.
+                This interactive map will allow participants of Rural and Plural to add points around the world with images, audio, video and contextual information about their follow-up projects.
             </p>
             <p>
-                Entries are saved in this browser first, and they can also sync to the shared map when the connection is available.
+                Click anywhere on the map to place a new contribution and share your project or iniciative.
             </p>
 
             <div class="layout">
@@ -264,16 +263,6 @@
                         <label>
                             Description
                             <textarea id="description" name="description" rows="3" placeholder="Describe the place, memory or evidence"></textarea>
-                        </label>
-                        <label>
-                            Category
-                            <select id="category" name="category">
-                                <option value="evidence">Evidence</option>
-                                <option value="image">Image</option>
-                                <option value="audio">Audio</option>
-                                <option value="video">Video</option>
-                                <option value="story">Story</option>
-                            </select>
                         </label>
                         <div class="coords">
                             <label>
@@ -328,7 +317,6 @@
         const form = document.getElementById('contribution-form');
         const titleInput = document.getElementById('title');
         const descriptionInput = document.getElementById('description');
-        const categoryInput = document.getElementById('category');
         const latInput = document.getElementById('lat');
         const lngInput = document.getElementById('lng');
         const authorInput = document.getElementById('author');
@@ -390,7 +378,7 @@
             titleInput.focus();
         });
 
-        loadPointsFromServer();
+        clearExistingPoints();
 
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
@@ -404,7 +392,7 @@
                 id: crypto.randomUUID(),
                 title: titleInput.value.trim(),
                 description: descriptionInput.value.trim(),
-                category: categoryInput.value,
+                category: 'story',
                 lat: latValue,
                 lng: lngValue,
                 author: authorInput.value.trim(),
@@ -436,6 +424,14 @@
                     : `Point saved locally because the shared connection is unavailable.`;
             titleInput.focus();
         });
+
+        function clearExistingPoints() {
+            points = [];
+            savePointsToStorage(points);
+            renderPoints();
+            renderList();
+            mapStatus.textContent = 'No points yet. Add the first one.';
+        }
 
         async function loadPointsFromServer() {
             try {
