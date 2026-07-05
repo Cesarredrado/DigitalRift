@@ -344,16 +344,24 @@
 
         function preparePoints(items) {
             const normalized = Array.isArray(items) ? items : [];
-            const visible = normalized.filter((point) => {
+            const visible = [];
+            let keptRuralPlural = false;
+
+            normalized.forEach((point) => {
                 const title = String(point.title || '').trim().toLowerCase();
                 if (EXCLUDED_TITLES.has(title)) {
-                    return false;
+                    return;
                 }
+
                 const hasExcludedPattern = EXCLUDED_TITLE_PATTERNS.some((pattern) => pattern.test(title));
                 if (hasExcludedPattern) {
-                    return false;
+                    if (keptRuralPlural) {
+                        return;
+                    }
+                    keptRuralPlural = true;
                 }
-                return true;
+
+                visible.push(point);
             });
             const startIndex = visible.findIndex((point) => {
                 const title = String(point.title || '').toLowerCase();
