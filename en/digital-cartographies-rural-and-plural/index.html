@@ -324,17 +324,43 @@
         const mapStatus = document.getElementById('map-status');
 
         let points = [];
+        const EXCLUDED_TITLES = new Set([
+            'fbrgfbfgb',
+            'dfvdf',
+            'debug check',
+            'post check',
+            'saved to supabase',
+            'status test',
+            'fresh load test',
+            'hola',
+            'documentary: la vuelta al reloj'
+        ]);
+        const EXCLUDED_TITLE_PATTERNS = [
+            /rural and plural/i,
+            /rural & plural/i
+        ];
 
         function preparePoints(items) {
             const normalized = Array.isArray(items) ? items : [];
-            const startIndex = normalized.findIndex((point) => {
+            const visible = normalized.filter((point) => {
+                const title = String(point.title || '').trim().toLowerCase();
+                if (EXCLUDED_TITLES.has(title)) {
+                    return false;
+                }
+                const hasExcludedPattern = EXCLUDED_TITLE_PATTERNS.some((pattern) => pattern.test(title));
+                if (hasExcludedPattern) {
+                    return false;
+                }
+                return true;
+            });
+            const startIndex = visible.findIndex((point) => {
                 const title = String(point.title || '').toLowerCase();
                 const description = String(point.description || '').toLowerCase();
                 const mediaValue = String(getPointValue(point, 'mediaValue', 'media_value') || '').toLowerCase();
                 return title.includes('rural') && title.includes('plural') && title.includes('erasmus') && mediaValue;
             });
 
-            const sourcePoints = startIndex >= 0 ? normalized.slice(startIndex) : normalized;
+            const sourcePoints = startIndex >= 0 ? visible.slice(startIndex) : visible;
             const deduped = [];
             const seen = new Set();
 
@@ -485,6 +511,7 @@
             }
 
             points = preparePoints(loadPointsFromStorage());
+            savePointsToStorage(points);
             renderPoints();
             renderList();
             mapStatus.textContent = 'Using local storage for this browser because the shared connection is temporarily unavailable.';
