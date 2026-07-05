@@ -325,6 +325,40 @@
 
         let points = [];
 
+        function preparePoints(items) {
+            const normalized = Array.isArray(items) ? items : [];
+            const startIndex = normalized.findIndex((point) => {
+                const title = String(point.title || '').toLowerCase();
+                const description = String(point.description || '').toLowerCase();
+                const mediaValue = String(getPointValue(point, 'mediaValue', 'media_value') || '').toLowerCase();
+                return title.includes('rural') && title.includes('plural') && title.includes('erasmus') && mediaValue;
+            });
+
+            const sourcePoints = startIndex >= 0 ? normalized.slice(startIndex) : normalized;
+            const deduped = [];
+            const seen = new Set();
+
+            sourcePoints.forEach((point) => {
+                const signature = [
+                    String(point.title || '').trim().toLowerCase(),
+                    String(point.description || '').trim().toLowerCase(),
+                    String(point.author || '').trim().toLowerCase(),
+                    String(point.lat ?? ''),
+                    String(point.lng ?? ''),
+                    String(getPointValue(point, 'mediaValue', 'media_value') || '').trim().toLowerCase()
+                ].join('|');
+
+                if (seen.has(signature)) {
+                    return;
+                }
+
+                seen.add(signature);
+                deduped.push(point);
+            });
+
+            return deduped;
+        }
+
         const map = L.map('map', {
             zoomControl: true,
             attributionControl: true
@@ -404,7 +438,7 @@
             }
 
             const savedPoint = await savePointToServer(newPoint);
-            points.push(savedPoint);
+            points = preparePoints([...points, savedPoint]);
             savePointsToStorage(points);
             renderPoints();
             renderList();
@@ -437,7 +471,7 @@
                 const localPoints = loadPointsFromStorage();
                 const mergedPoints = remotePoints.length ? remotePoints : localPoints;
 
-                points = mergedPoints;
+                points = preparePoints(mergedPoints);
                 savePointsToStorage(points);
                 renderPoints();
                 renderList();
@@ -450,7 +484,7 @@
                 console.warn('Remote storage unavailable, using local storage instead.', error);
             }
 
-            points = loadPointsFromStorage();
+            points = preparePoints(loadPointsFromStorage());
             renderPoints();
             renderList();
             mapStatus.textContent = 'Using local storage for this browser because the shared connection is temporarily unavailable.';
