@@ -1,6 +1,6 @@
 import json
 import os
-from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, urlparse
 from uuid import uuid4
 
@@ -32,7 +32,7 @@ def add_point(point):
     return new_point
 
 
-class PointsHandler(BaseHTTPRequestHandler):
+class PointsHandler(SimpleHTTPRequestHandler):
     def _send_json(self, payload, status=200):
         body = json.dumps(payload).encode('utf-8')
         self.send_response(status)
@@ -51,7 +51,7 @@ class PointsHandler(BaseHTTPRequestHandler):
         if self.path.startswith('/points'):
             self._send_json(load_points())
             return
-        self._send_json({'ok': True})
+        super().do_GET()
 
     def do_POST(self):
         if not self.path.startswith('/points'):
